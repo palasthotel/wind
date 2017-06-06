@@ -10,6 +10,11 @@
 		967614681EE6F0880045FBA3 /* Wind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9676145E1EE6F0880045FBA3 /* Wind.framework */; };
 		9676146D1EE6F0880045FBA3 /* WindTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676146C1EE6F0880045FBA3 /* WindTests.swift */; };
 		9676146F1EE6F0880045FBA3 /* Wind.h in Headers */ = {isa = PBXBuildFile; fileRef = 967614611EE6F0880045FBA3 /* Wind.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		967614791EE6F0B50045FBA3 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967614781EE6F0B50045FBA3 /* Component.swift */; };
+		9676147B1EE6F1F70045FBA3 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676147A1EE6F1F70045FBA3 /* Resolver.swift */; };
+		9676147D1EE6F2500045FBA3 /* Resolvers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676147C1EE6F2500045FBA3 /* Resolvers.swift */; };
+		9676147F1EE6F2E30045FBA3 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676147E1EE6F2E30045FBA3 /* Container.swift */; };
+		967614811EE6F3560045FBA3 /* Factories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967614801EE6F3560045FBA3 /* Factories.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +28,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		960F6A4D1EE735410047733F /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		9676145E1EE6F0880045FBA3 /* Wind.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Wind.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		967614611EE6F0880045FBA3 /* Wind.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wind.h; sourceTree = "<group>"; };
 		967614621EE6F0880045FBA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		967614671EE6F0880045FBA3 /* WindTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WindTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9676146C1EE6F0880045FBA3 /* WindTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindTests.swift; sourceTree = "<group>"; };
 		9676146E1EE6F0880045FBA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		967614781EE6F0B50045FBA3 /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
+		9676147A1EE6F1F70045FBA3 /* Resolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
+		9676147C1EE6F2500045FBA3 /* Resolvers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolvers.swift; sourceTree = "<group>"; };
+		9676147E1EE6F2E30045FBA3 /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		967614801EE6F3560045FBA3 /* Factories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factories.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +64,7 @@
 		967614541EE6F0880045FBA3 = {
 			isa = PBXGroup;
 			children = (
+				960F6A4D1EE735410047733F /* Readme.md */,
 				967614601EE6F0880045FBA3 /* Wind */,
 				9676146B1EE6F0880045FBA3 /* WindTests */,
 				9676145F1EE6F0880045FBA3 /* Products */,
@@ -73,6 +85,11 @@
 			children = (
 				967614611EE6F0880045FBA3 /* Wind.h */,
 				967614621EE6F0880045FBA3 /* Info.plist */,
+				967614781EE6F0B50045FBA3 /* Component.swift */,
+				9676147A1EE6F1F70045FBA3 /* Resolver.swift */,
+				9676147C1EE6F2500045FBA3 /* Resolvers.swift */,
+				9676147E1EE6F2E30045FBA3 /* Container.swift */,
+				967614801EE6F3560045FBA3 /* Factories.swift */,
 			);
 			path = Wind;
 			sourceTree = "<group>";
@@ -149,6 +166,7 @@
 					9676145D1EE6F0880045FBA3 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = L8585CEAXA;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					967614661EE6F0880045FBA3 = {
@@ -198,6 +216,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				967614791EE6F0B50045FBA3 /* Component.swift in Sources */,
+				9676147F1EE6F2E30045FBA3 /* Container.swift in Sources */,
+				9676147B1EE6F1F70045FBA3 /* Resolver.swift in Sources */,
+				967614811EE6F3560045FBA3 /* Factories.swift in Sources */,
+				9676147D1EE6F2500045FBA3 /* Resolvers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +347,7 @@
 		967614731EE6F0880045FBA3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = L8585CEAXA;
@@ -336,6 +360,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.palasthotel.Wind;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -343,6 +368,7 @@
 		967614741EE6F0880045FBA3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = L8585CEAXA;
@@ -362,6 +388,7 @@
 		967614761EE6F0880045FBA3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = L8585CEAXA;
 				INFOPLIST_FILE = WindTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -374,6 +401,7 @@
 		967614771EE6F0880045FBA3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = L8585CEAXA;
 				INFOPLIST_FILE = WindTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -402,6 +430,7 @@
 				967614741EE6F0880045FBA3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		967614751EE6F0880045FBA3 /* Build configuration list for PBXNativeTarget "WindTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +439,7 @@
 				967614771EE6F0880045FBA3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
