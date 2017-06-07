@@ -16,7 +16,7 @@ protocol Dependency {
     
 }
 
-class IndirectImplementation : VisibleComponent,Singleton,IndirectResolver {
+class IndirectImplementation : VisibleComponent,AutomaticDependencyHandling,Singleton,IndirectResolver {
     typealias DependencyToken = Dependency
     typealias PublicInterface = VisibleComponent
     
@@ -27,7 +27,7 @@ class IndirectImplementation : VisibleComponent,Singleton,IndirectResolver {
     }
 }
 
-class Consumer : Instantiable,DirectResolver,Dependency {
+class Consumer : Instantiable,AutomaticDependencyHandling,DirectResolver,Dependency {
     var dependencies: [String : Component] = [:];
     
     required init() {
@@ -39,7 +39,7 @@ class Consumer : Instantiable,DirectResolver,Dependency {
     
 }
 
-class SimpleComponent: Singleton,DirectResolver {
+class SimpleComponent: Singleton,AutomaticDependencyHandling,DirectResolver {
     var dependencies: [String : Component] = [:];
     
     required init() {
@@ -48,7 +48,7 @@ class SimpleComponent: Singleton,DirectResolver {
     
 }
 
-class ReallySimpleComponent: Singleton,SimpleResolver {
+class ReallySimpleComponent: Singleton,AutomaticDependencyHandling,SimpleResolver {
     var dependencies: [String : Component] = [:];
     typealias DependencyToken = Dependency
     
@@ -58,7 +58,7 @@ class ReallySimpleComponent: Singleton,SimpleResolver {
 
 }
 
-class DirectInstantiableComponent: Instantiable,DirectResolver {
+class DirectInstantiableComponent: Instantiable,AutomaticDependencyHandling,DirectResolver {
     var dependencies: [String : Component] = [:];
     
     required init() {
@@ -67,7 +67,7 @@ class DirectInstantiableComponent: Instantiable,DirectResolver {
 
 }
 
-class IndirectInstantiableComponent: VisibleComponent,Instantiable,IndirectResolver {
+class IndirectInstantiableComponent: VisibleComponent,AutomaticDependencyHandling,Instantiable,IndirectResolver {
     typealias DependencyToken = Dependency
     typealias PublicInterface = VisibleComponent
     var dependencies: [String : Component] = [:];
@@ -77,7 +77,7 @@ class IndirectInstantiableComponent: VisibleComponent,Instantiable,IndirectResol
     }
 }
 
-class IndirectInstantiableConsumer: Component,Singleton,DirectResolver,Dependency {
+class IndirectInstantiableConsumer: Component,AutomaticDependencyHandling,Singleton,DirectResolver,Dependency {
     var dependencies: [String : Component] = [:];
     
     required init() {
@@ -88,7 +88,7 @@ class IndirectInstantiableConsumer: Component,Singleton,DirectResolver,Dependenc
     var NotFOund:IndirectInstantiableComponent! { get { return component()}}
 }
 
-class SimpleInstantiableComponent: Instantiable,SimpleResolver {
+class SimpleInstantiableComponent: Instantiable,AutomaticDependencyHandling,SimpleResolver {
     var dependencies: [String : Component] = [:];
     typealias DependencyToken = Dependency
     required init() {
@@ -96,7 +96,7 @@ class SimpleInstantiableComponent: Instantiable,SimpleResolver {
     }
 }
 
-class SimpleInstantiableConsumer: Singleton,DirectResolver,Dependency {
+class SimpleInstantiableConsumer: Singleton,AutomaticDependencyHandling,DirectResolver,Dependency {
     var dependencies: [String : Component] = [:];
     
     required init() {
@@ -110,7 +110,7 @@ protocol DependencyA {
     
 }
 
-class ComponentA:Singleton,SimpleResolver,DependencyB {
+class ComponentA:Singleton,AutomaticDependencyHandling,SimpleResolver,DependencyB {
     typealias DependencyToken = DependencyA;
     
     var dependencies: [String : Component] = [:];
@@ -124,7 +124,7 @@ protocol DependencyB {
     
 }
 
-class ComponentB:Singleton,SimpleResolver,DependencyA {
+class ComponentB:Singleton,AutomaticDependencyHandling,SimpleResolver,DependencyA {
     typealias DependencyToken = DependencyB;
     
     var dependencies: [String : Component] = [:];
@@ -132,6 +132,35 @@ class ComponentB:Singleton,SimpleResolver,DependencyA {
     required init() {
         
     }
+}
+
+
+public protocol FileManagerDependency {
+    
+}
+
+extension FileManager:ForeignSingleton,SimpleResolver {
+    public typealias DependencyToken = FileManagerDependency
+    
+    public func fill(dependency: Any.Type, with: Component) {
+        //we don't have any dependencies
+    }
+    
+    public static func getForeignInstance() -> Component {
+        return FileManager.default;
+    }
+}
+
+class FileManagerConsumer: Instantiable,AutomaticDependencyHandling,DirectResolver,FileManagerDependency {
+    
+    var Found:FileManager! {get { return component()} }
+    
+    var dependencies: [String : Component] = [:];
+    
+    required init() {
+        
+    }
+    
 }
 
 class WindTests: XCTestCase {
@@ -248,5 +277,15 @@ class WindTests: XCTestCase {
             
         }
         XCTAssertTrue(thrown);
+    }
+    
+    func testForeignSingletons() {
+        let cnt = Container();
+        FileManager.register(in: cnt);
+        FileManagerConsumer.register(in: cnt);
+        
+        try! cnt.bootstrap();
+        let instance:FileManagerConsumer = cnt.resolve();
+        XCTAssertNotNil(instance.Found);
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 /// This Factory can only resolve directly by instantiating and resolving a single component.
-internal class DirectComponentFactory<Item:Component,PublicInterface>:Component,Resolver,ContainerDependency where Item:Instantiable {
+internal class DirectComponentFactory<Item:Component,PublicInterface>:Component,AutomaticDependencyHandling,Resolver,ContainerDependency where Item:Instantiable {
     
     required init() {
         

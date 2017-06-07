@@ -13,7 +13,7 @@ internal protocol ContainerDependency {
 }
 
 
-class Container:Component,SimpleResolver {
+class Container:Component,AutomaticDependencyHandling,SimpleResolver {
     
     enum ResolutionError:Error {
         case cycleDetected([Component])

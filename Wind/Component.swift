@@ -9,24 +9,35 @@
 import Foundation
 
 protocol Component:class {
-    /// This Variable will hold all your dependencies.
-    /// However there is no need to directly interact with it.
-    /// Instead: use the function component() provided.
-    var dependencies:[String:Component] {get set}
     
     /// This Function will be used to provide your component
     /// with all dependencies we found.
     /// There is no need to implement it as we're providing a very
     /// valuable default.
     func fill(dependency:Any.Type, with object:Component) -> Void
-    
-    /// As Wind will construct everything there needs to be a way to do so.
-    init()
+}
+
+/// Use this protocol if you'd like to handle your dependencies automatically instead of implementing fill() on your own.
+protocol AutomaticDependencyHandling:Component {
+    /// This Variable will hold all your dependencies.
+    /// However there is no need to directly interact with it.
+    /// Instead: use the function component() provided.
+    var dependencies:[String:Component] {get set}
+
+}
+
+/// ForeignSingleton classes get created outside of the container.
+/// Use this feature to blend in UIKit Components like FileManager and UserDefaults.
+protocol ForeignSingleton : Component {
+    static func getForeignInstance() -> Component;
 }
 
 /// This specialised Subprotocol is telling Wind that your Component
 /// is meant to be used as a Singleton.
 protocol Singleton: Component {
+
+    /// As Wind will construct everything there needs to be a way to do so.
+    init()
     
 }
 
@@ -36,9 +47,12 @@ protocol Singleton: Component {
 /// Most of the time there is nothing you need to do.
 protocol Instantiable: Component {
     static func buildFactory() -> Resolver;
+
+    /// As Wind will construct everything there needs to be a way to do so.
+    init()
 }
 
-extension Component {
+extension AutomaticDependencyHandling {
     func fill(dependency:Any.Type, with:Component) -> Void {
         dependencies[String(describing: dependency)] = with
     }
@@ -63,6 +77,16 @@ extension Component where Self:Singleton {
         container.register(component: instance);
         if(instance is Resolver) {
             container.register(resolver:instance as! Resolver);
+        }
+    }
+}
+
+extension Component where Self:ForeignSingleton {
+    static func register(in container:Container) -> Void {
+        let instance=self.getForeignInstance();
+        container.register(component: instance);
+        if(instance is Resolver) {
+            container.register(resolver: instance as! Resolver);
         }
     }
 }
