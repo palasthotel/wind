@@ -16,6 +16,7 @@ import Foundation
 
 protocol Resolver:class {
     func resolve(on consumer:Component) -> Void
+    func resolutionPossible(on consumer:Component) -> Bool
     func resolveDirectly<T>()->T?
     
 }

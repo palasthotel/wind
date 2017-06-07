@@ -20,12 +20,16 @@ internal class DirectComponentFactory<Item:Component,PublicInterface>:Component,
         //this is not supported by this factory
     }
     
+    func resolutionPossible(on consumer: Component) -> Bool {
+        return false;
+    }
+    
     func resolveDirectly<T>() -> T? {
         if(T.self != PublicInterface.self) {
             return nil;
         }
         let instance = Item()
-        Container.resolve(for: instance);
+        try! Container.resolve(for: instance);
         return instance as? T
     }
 }
@@ -38,9 +42,13 @@ internal class IndirectComponentFactory<Item:Component,PublicInterface,Dependenc
     override func resolve(on consumer: Component) {
         if (consumer is DependencyDetection) {
             let instance = Item()
-            Container.resolve(for:instance)
+            try! Container.resolve(for:instance)
             consumer.fill(dependency: PublicInterface.self, with: instance)
         }
+    }
+    
+    override func resolutionPossible(on consumer: Component) -> Bool {
+        return consumer is DependencyDetection;
     }
 }
 

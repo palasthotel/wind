@@ -20,6 +20,10 @@ extension DirectResolver where Self:Component {
         //not implemented
     }
     
+    func resolutionPossible(on consumer: Component) -> Bool {
+        return false;
+    }
+    
     func resolveDirectly<T>() -> T? {
         if(T.self != type(of:self)) {
             return nil;
@@ -41,6 +45,11 @@ extension SimpleResolver where Self:Component{
             consumer.fill(dependency: type(of:self), with: self)
         }
     }
+    
+    func resolutionPossible(on consumer: Component) -> Bool {
+        return consumer is DependencyToken;
+    }
+    
     func resolveDirectly<T>()->T? {
         if(T.self != type(of:self)) {
             return nil;
@@ -63,6 +72,10 @@ extension IndirectResolver where Self:Component{
             consumer.fill(dependency: PublicInterface.self, with: self)
         }
         
+    }
+    
+    func resolutionPossible(on consumer: Component) -> Bool {
+        return consumer is DependencyToken;
     }
     
     func resolveDirectly<T>() -> T? {

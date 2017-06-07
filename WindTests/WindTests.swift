@@ -106,6 +106,34 @@ class SimpleInstantiableConsumer: Singleton,DirectResolver,Dependency {
     var Found:SimpleInstantiableComponent! { get { return component()}}
 }
 
+protocol DependencyA {
+    
+}
+
+class ComponentA:Singleton,SimpleResolver,DependencyB {
+    typealias DependencyToken = DependencyA;
+    
+    var dependencies: [String : Component] = [:];
+    
+    required init() {
+        
+    }
+}
+
+protocol DependencyB {
+    
+}
+
+class ComponentB:Singleton,SimpleResolver,DependencyA {
+    typealias DependencyToken = DependencyB;
+    
+    var dependencies: [String : Component] = [:];
+    
+    required init() {
+        
+    }
+}
+
 class WindTests: XCTestCase {
     
     override func setUp() {
@@ -121,7 +149,7 @@ class WindTests: XCTestCase {
     func testIndirectManualResolutionOnSingletons() {
         let cnt=Container();
         IndirectImplementation.register(in:cnt);
-        cnt.bootstrap();
+        try! cnt.bootstrap();
         
         let found:VisibleComponent! = cnt.resolve();
         XCTAssertNotNil(found);
@@ -133,7 +161,7 @@ class WindTests: XCTestCase {
         let cnt=Container();
         IndirectImplementation.register(in:cnt);
         Consumer.register(in: cnt);
-        cnt.bootstrap();
+        try! cnt.bootstrap();
         
         let result:Consumer! = cnt.resolve();
         XCTAssertNotNil(result);
@@ -144,7 +172,7 @@ class WindTests: XCTestCase {
     func testDirectManualResolutionOnSingletons() {
         let cnt=Container();
         SimpleComponent.register(in: cnt);
-        cnt.bootstrap();
+        try! cnt.bootstrap();
         
         let result:SimpleComponent! = cnt.resolve();
         XCTAssertNotNil(result);
@@ -155,7 +183,7 @@ class WindTests: XCTestCase {
     func testSimpleManualResolutionOnSingletons() {
         let cnt=Container();
         ReallySimpleComponent.register(in: cnt);
-        cnt.bootstrap();
+        try! cnt.bootstrap();
         
         let result:ReallySimpleComponent! = cnt.resolve();
         XCTAssertNotNil(result)
@@ -164,7 +192,7 @@ class WindTests: XCTestCase {
     func testDirectManualResolutionOnFactories() {
         let cnt=Container();
         Consumer.register(in: cnt);
-        cnt.bootstrap();
+        try! cnt.bootstrap();
         
         let result:Consumer! = cnt.resolve();
         XCTAssertNotNil(result);
@@ -173,7 +201,7 @@ class WindTests: XCTestCase {
     func testIndirectResolutionOnFactories() {
         let cnt=Container();
         DirectInstantiableComponent.register(in: cnt);
-        cnt.bootstrap();
+        try! cnt.bootstrap();
         
         let result:DirectInstantiableComponent! = cnt.resolve();
         XCTAssertNotNil(result)
@@ -185,7 +213,7 @@ class WindTests: XCTestCase {
         let cnt = Container();
         IndirectInstantiableComponent.register(in: cnt);
         IndirectInstantiableConsumer.register(in: cnt);
-        cnt.bootstrap();
+        try! cnt.bootstrap();
         
         let item:IndirectInstantiableConsumer! = cnt.resolve();
         XCTAssertNotNil(item);
@@ -197,10 +225,28 @@ class WindTests: XCTestCase {
         let cnt = Container();
         SimpleInstantiableConsumer.register(in: cnt);
         SimpleInstantiableComponent.register(in: cnt);
-        cnt.bootstrap();
+        try! cnt.bootstrap();
         
         let item:SimpleInstantiableConsumer! = cnt.resolve();
         XCTAssertNotNil(item);
         XCTAssertNotNil(item.Found);
+    }
+    
+    func testCyclicResolution() {
+        let cnt = Container();
+        ComponentA.register(in: cnt);
+        ComponentB.register(in: cnt);
+        
+        var thrown = false;
+        do {
+            try cnt.bootstrap();
+        }
+        catch Container.ResolutionError.cycleDetected(_) {
+            thrown=true;
+        }
+        catch {
+            
+        }
+        XCTAssertTrue(thrown);
     }
 }
