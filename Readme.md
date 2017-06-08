@@ -73,6 +73,82 @@ class MyComponentImplementation: MyComponent,Singleton,AutomaticDependencyHandli
 
 As you see, there is no real overhead between simple and indirect resolution. Whenever possible, use indirect depency resolution.
 
+## The other side
+
+So, how do you get your dependencies: that's plain simple:
+
+```swift
+
+class Consumer: Component,AutomaticDependencyHandling,SimpleResolver,Singleton,MyComponentDependency {
+    var dependencies: [String : Component] = [:];
+    
+    required init() {
+
+    }
+}
+```
+
+This is essentially all you need. If you now want to access your dependency, you simply do so by calling `component()`. For example:
+
+```swift
+
+class Consumer: Component,AutomaticDependencyHandling,SimpleResolver,Singleton,MyComponentDependency {
+    var dependencies: [String : Component] = [:];
+    
+    required init() {
+
+    }
+
+    func doWork() {
+        let cmp:MyComponent! = component();
+        cmp.foo();
+    }
+}
+```
+
+As You might already notice: wind does not support constructor injection. So you can't access any of your dependencies within init(). To ease work with the dependencies, the following pattern is very helpful:
+
+```swift
+
+class Consumer: Component,AutomaticDependencyHandling,SimpleResolver,Singleton,MyComponentDependency {
+    var dependencies: [String : Component] = [:];
+    
+    required init() {
+
+    }
+
+    lazy var cmp:MyComponent! = self.component();
+
+    func doWork() {
+        cmp.foo();
+    }
+
+}
+```
+
+If you want to adopt this pattern, extensions on your dependency protocols can help you reduce the boilerplate code:
+
+```swift
+
+extension MyComponentDependency where Self:AutomaticDependencyHandling {
+    var cmp:MyComponent! { get { return self.component(); } }
+
+
+class Consumer: Component,AutomaticDependencyHandling,SimpleResolver,Singleton,MyComponentDependency {
+    var dependencies: [String : Component] = [:];
+    
+    required init() {
+
+    }
+
+    func doWork() {
+        cmp.foo();
+    }
+
+}
+```
+
+
 ## Container Construction
 
 Setting up a new container is really simple:

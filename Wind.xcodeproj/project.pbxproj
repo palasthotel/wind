@@ -15,6 +15,7 @@
 		9676147D1EE6F2500045FBA3 /* Resolvers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676147C1EE6F2500045FBA3 /* Resolvers.swift */; };
 		9676147F1EE6F2E30045FBA3 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676147E1EE6F2E30045FBA3 /* Container.swift */; };
 		967614811EE6F3560045FBA3 /* Factories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967614801EE6F3560045FBA3 /* Factories.swift */; };
+		96E552521EE84E4D004AF0BE /* StoryboardSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E552511EE84E4D004AF0BE /* StoryboardSupport.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		9676147C1EE6F2500045FBA3 /* Resolvers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolvers.swift; sourceTree = "<group>"; };
 		9676147E1EE6F2E30045FBA3 /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		967614801EE6F3560045FBA3 /* Factories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factories.swift; sourceTree = "<group>"; };
+		96E552511EE84E4D004AF0BE /* StoryboardSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardSupport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				9676147C1EE6F2500045FBA3 /* Resolvers.swift */,
 				9676147E1EE6F2E30045FBA3 /* Container.swift */,
 				967614801EE6F3560045FBA3 /* Factories.swift */,
+				96E552511EE84E4D004AF0BE /* StoryboardSupport.swift */,
 			);
 			path = Wind;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			files = (
 				967614791EE6F0B50045FBA3 /* Component.swift in Sources */,
 				9676147F1EE6F2E30045FBA3 /* Container.swift in Sources */,
+				96E552521EE84E4D004AF0BE /* StoryboardSupport.swift in Sources */,
 				9676147B1EE6F1F70045FBA3 /* Resolver.swift in Sources */,
 				967614811EE6F3560045FBA3 /* Factories.swift in Sources */,
 				9676147D1EE6F2500045FBA3 /* Resolvers.swift in Sources */,
