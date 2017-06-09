@@ -57,7 +57,6 @@ public class Container:Component,AutomaticDependencyHandling,SimpleResolver {
     
     private func resolve(for consumer:Component, alreadyResolving:[Component]) throws -> Void {
         if(alreadyResolving.contains(where: {$0 === consumer})) {
-            //TODO: throw exception.
             throw ResolutionError.cycleDetected(alreadyResolving);
         }
         for resolver in resolvers {

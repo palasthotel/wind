@@ -14,6 +14,8 @@
 		9607F0201EEAA9AF0010C7FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9607F01E1EEAA9AF0010C7FF /* LaunchScreen.storyboard */; };
 		9607F0251EEAA9C20010C7FF /* Wind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9676145E1EE6F0880045FBA3 /* Wind.framework */; };
 		9607F0261EEAA9C20010C7FF /* Wind.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9676145E1EE6F0880045FBA3 /* Wind.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9607F02B1EEABC520010C7FF /* WeakDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F02A1EEABC520010C7FF /* WeakDependencies.swift */; };
+		9607F02D1EEABFB90010C7FF /* ForeignResolvers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F02C1EEABFB90010C7FF /* ForeignResolvers.swift */; };
 		967614681EE6F0880045FBA3 /* Wind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9676145E1EE6F0880045FBA3 /* Wind.framework */; };
 		9676146D1EE6F0880045FBA3 /* WindTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676146C1EE6F0880045FBA3 /* WindTests.swift */; };
 		9676146F1EE6F0880045FBA3 /* Wind.h in Headers */ = {isa = PBXBuildFile; fileRef = 967614611EE6F0880045FBA3 /* Wind.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -22,6 +24,7 @@
 		9676147D1EE6F2500045FBA3 /* Resolvers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676147C1EE6F2500045FBA3 /* Resolvers.swift */; };
 		9676147F1EE6F2E30045FBA3 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676147E1EE6F2E30045FBA3 /* Container.swift */; };
 		967614811EE6F3560045FBA3 /* Factories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967614801EE6F3560045FBA3 /* Factories.swift */; };
+		968948841EEAC53000A7140D /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968948831EEAC53000A7140D /* SecondViewController.swift */; };
 		96E552521EE84E4D004AF0BE /* StoryboardSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E552511EE84E4D004AF0BE /* StoryboardSupport.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +67,8 @@
 		9607F01C1EEAA9AF0010C7FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9607F01F1EEAA9AF0010C7FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9607F0211EEAA9AF0010C7FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9607F02A1EEABC520010C7FF /* WeakDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakDependencies.swift; sourceTree = "<group>"; };
+		9607F02C1EEABFB90010C7FF /* ForeignResolvers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForeignResolvers.swift; sourceTree = "<group>"; };
 		960F6A4D1EE735410047733F /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		9676145E1EE6F0880045FBA3 /* Wind.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Wind.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		967614611EE6F0880045FBA3 /* Wind.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wind.h; sourceTree = "<group>"; };
@@ -76,6 +81,7 @@
 		9676147C1EE6F2500045FBA3 /* Resolvers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolvers.swift; sourceTree = "<group>"; };
 		9676147E1EE6F2E30045FBA3 /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		967614801EE6F3560045FBA3 /* Factories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factories.swift; sourceTree = "<group>"; };
+		968948831EEAC53000A7140D /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		96E552511EE84E4D004AF0BE /* StoryboardSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardSupport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +117,7 @@
 			children = (
 				9607F0151EEAA9AF0010C7FF /* AppDelegate.swift */,
 				9607F0171EEAA9AF0010C7FF /* ViewController.swift */,
+				968948831EEAC53000A7140D /* SecondViewController.swift */,
 				9607F0191EEAA9AF0010C7FF /* Main.storyboard */,
 				9607F01C1EEAA9AF0010C7FF /* Assets.xcassets */,
 				9607F01E1EEAA9AF0010C7FF /* LaunchScreen.storyboard */,
@@ -151,6 +158,8 @@
 				9676147E1EE6F2E30045FBA3 /* Container.swift */,
 				967614801EE6F3560045FBA3 /* Factories.swift */,
 				96E552511EE84E4D004AF0BE /* StoryboardSupport.swift */,
+				9607F02A1EEABC520010C7FF /* WeakDependencies.swift */,
+				9607F02C1EEABFB90010C7FF /* ForeignResolvers.swift */,
 			);
 			path = Wind;
 			sourceTree = "<group>";
@@ -313,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968948841EEAC53000A7140D /* SecondViewController.swift in Sources */,
 				9607F0181EEAA9AF0010C7FF /* ViewController.swift in Sources */,
 				9607F0161EEAA9AF0010C7FF /* AppDelegate.swift in Sources */,
 			);
@@ -322,11 +332,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9607F02D1EEABFB90010C7FF /* ForeignResolvers.swift in Sources */,
 				967614791EE6F0B50045FBA3 /* Component.swift in Sources */,
 				9676147F1EE6F2E30045FBA3 /* Container.swift in Sources */,
 				96E552521EE84E4D004AF0BE /* StoryboardSupport.swift in Sources */,
 				9676147B1EE6F1F70045FBA3 /* Resolver.swift in Sources */,
 				967614811EE6F3560045FBA3 /* Factories.swift in Sources */,
+				9607F02B1EEABC520010C7FF /* WeakDependencies.swift in Sources */,
 				9676147D1EE6F2500045FBA3 /* Resolvers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -580,6 +592,7 @@
 				9607F0231EEAA9AF0010C7FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		967614581EE6F0880045FBA3 /* Build configuration list for PBXProject "Wind" */ = {
 			isa = XCConfigurationList;

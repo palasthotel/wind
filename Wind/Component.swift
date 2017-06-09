@@ -17,15 +17,6 @@ public protocol Component:class {
     func fill(dependency:Any.Type, with object:Component) -> Void
 }
 
-/// Use this protocol if you'd like to handle your dependencies automatically instead of implementing fill() on your own.
-public protocol AutomaticDependencyHandling:Component {
-    /// This Variable will hold all your dependencies.
-    /// However there is no need to directly interact with it.
-    /// Instead: use the function component() provided.
-    var dependencies:[String:Component] {get set}
-
-}
-
 /// ForeignSingleton classes get created outside of the container.
 /// Use this feature to blend in UIKit Components like FileManager and UserDefaults.
 public protocol ForeignSingleton : Component {
@@ -52,6 +43,20 @@ public protocol Instantiable: Component {
     init()
 }
 
+public protocol ForeignInstantiable : Component {
+
+}
+
+/// Use this protocol if you'd like to handle your dependencies automatically instead of implementing fill() on your own.
+public protocol AutomaticDependencyHandling:Component {
+    /// This Variable will hold all your dependencies.
+    /// However there is no need to directly interact with it.
+    /// Instead: use the function component() provided.
+    var dependencies:[String:Component] {get set}
+    
+}
+
+
 public extension AutomaticDependencyHandling {
     func fill(dependency:Any.Type, with:Component) -> Void {
         dependencies[String(describing: dependency)] = with
@@ -68,6 +73,40 @@ public extension Component where Self:Instantiable {
             container.register(component: resolver as! Component);
         }
         container.register(resolver:resolver);
+    }
+}
+
+public extension Component where Self:ForeignInstantiable & SimpleResolver {
+    func resolveMe(in container:Container) -> Void {
+        let resolver:ForeignSimpleResolver<DependencyToken,Self> = container.resolve();
+        resolver.component = self;
+        for component in container.components {
+            if(resolver.resolutionPossible(on: component)) {
+                resolver.resolve(on: component);
+            }
+        }
+    }
+    
+    static func register(in container:Container) -> Void {
+        let resolver = ForeignSimpleResolver<DependencyToken,Self>();
+        container.register(resolver: resolver);
+    }
+}
+
+public extension Component where Self:ForeignInstantiable & IndirectResolver {
+    func resolveMe(in container:Container) -> Void {
+        let resolver:ForeignIndirectResolver<DependencyToken,PublicInterface,Self> = container.resolve();
+        resolver.component = self;
+        for component in container.components {
+            if(resolver.resolutionPossible(on: component)) {
+                resolver.resolve(on: component);
+            }
+        }
+    }
+    
+    static func register(in container:Container) -> Void {
+        let resolver = ForeignIndirectResolver<DependencyToken,PublicInterface,Self>();
+        container.register(resolver: resolver);
     }
 }
 

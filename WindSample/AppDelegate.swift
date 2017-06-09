@@ -18,11 +18,12 @@ extension AppDelegateDependency where Self:AutomaticDependencyHandling {
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,ForeignSingleton,SimpleResolver,AutomaticDependencyHandling {
+class AppDelegate: UIResponder, UIApplicationDelegate,ForeignSingleton,SimpleResolver,AutomaticWeakDependencyHandling,SecondViewControllerDependency {
 
     typealias DependencyToken = AppDelegateDependency;
     
     var dependencies: [String : Component] = [:];
+    var weakDependencies: [String : WeakReference] = [:];
     
     static var instance:AppDelegate?;
     
@@ -36,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,ForeignSingleton,SimpleRes
         
         let cnt=Container();
         AppDelegate.register(in: cnt);
+        SecondViewController.register(in: cnt);
         
         try! cnt.bootstrap();
         UIApplication.shared.Container = cnt;
@@ -56,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,ForeignSingleton,SimpleRes
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        let instance = self.secondViewController;
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
