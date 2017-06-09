@@ -11,11 +11,11 @@ import Foundation
 /// The DirectResolver is only capable of resolving directly. 
 /// Automatic Mode is not supported.
 /// This protocol provides you with a default implementation.
-protocol DirectResolver: Resolver {
+public protocol DirectResolver: Resolver {
     
 }
 
-extension DirectResolver where Self:Component {
+public extension DirectResolver where Self:Component {
     func resolve(on consumer: Component) {
         //not implemented
     }
@@ -35,11 +35,11 @@ extension DirectResolver where Self:Component {
 /// The SimpleResolver resolves in both modes the type it's applied to.
 /// For automatic mode detection you need to give us a type hint.
 /// If the component can be typecast into the hint, the dependency gets fullfilled.
-protocol SimpleResolver : Resolver {
+public protocol SimpleResolver : Resolver {
     associatedtype DependencyToken
 }
 
-extension SimpleResolver where Self:Component{
+public extension SimpleResolver where Self:Component{
     func resolve(on consumer:Component) -> Void {
         if consumer is DependencyToken {
             consumer.fill(dependency: type(of:self), with: self)
@@ -61,12 +61,12 @@ extension SimpleResolver where Self:Component{
 
 /// The IndirectResolver is just as the SimpleResolver capable of resolving in both modes.
 /// But: it casts the component into an protocol to hide the implementation.
-protocol IndirectResolver:Resolver {
+public protocol IndirectResolver:Resolver {
     associatedtype DependencyToken
     associatedtype PublicInterface
 }
 
-extension IndirectResolver where Self:Component{
+public extension IndirectResolver where Self:Component{
     func resolve(on consumer:Component) -> Void {
         if consumer is DependencyToken {
             consumer.fill(dependency: PublicInterface.self, with: self)

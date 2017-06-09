@@ -9,39 +9,40 @@
 import Foundation
 
 /// If you need direct access to the container, this is your way to go.
-internal protocol ContainerDependency {
+public protocol ContainerDependency {
 }
 
 
-class Container:Component,AutomaticDependencyHandling,SimpleResolver {
+public class Container:Component,AutomaticDependencyHandling,SimpleResolver {
     
-    enum ResolutionError:Error {
+    public enum ResolutionError:Error {
         case cycleDetected([Component])
     }
     
-    var dependencies: [String : Component] = [:]
+    public var dependencies: [String : Component] = [:]
     
-    typealias DependencyToken = ContainerDependency
+    public typealias DependencyToken = ContainerDependency
     var components:[Component] = []
     var resolvers:[Resolver] = []
     var readyResolvers:[Resolver] = []
     
-    required init() {
+    public required init() {
         resolvers.append(self)
         readyResolvers.append(self);
     }
     
-    func register(component:Component) -> Void {
+    public func register(component:Component) -> Void {
         components.append(component);
     }
-    func register(resolver:Resolver) -> Void {
+    
+    public func register(resolver:Resolver) -> Void {
         resolvers.append(resolver);
         if(!(resolver is Component)) {
             readyResolvers.append(resolver);
         }
     }
     
-    func bootstrap() throws {
+    public func bootstrap() throws {
         for comp in resolvers.filter({$0 is Component}).map({$0 as! Component}) {
             try resolve(for: comp);
         }
@@ -77,11 +78,11 @@ class Container:Component,AutomaticDependencyHandling,SimpleResolver {
 
     }
     
-    func resolve(for consumer:Component) throws -> Void {
+    public func resolve(for consumer:Component) throws -> Void {
         try resolve(for:consumer, alreadyResolving:[]);
     }
     
-    func resolve<T>() -> T! {
+    public func resolve<T>() -> T! {
         for resolver in resolvers {
             let result:T? = resolver.resolveDirectly();
             if result != nil {

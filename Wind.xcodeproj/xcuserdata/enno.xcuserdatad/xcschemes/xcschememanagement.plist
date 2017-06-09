@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>WindSample.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>9607F0121EEAA9AF0010C7FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9676145D1EE6F0880045FBA3</key>
 		<dict>
 			<key>primary</key>
