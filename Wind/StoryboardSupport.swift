@@ -54,6 +54,7 @@ public extension UIStoryboard {
     }
 }
 
+/// This class can be added to your storyboard to resolve the view controller as a component.
 @objc public class StoryboardResolver : NSObject {
     @IBOutlet var viewController: UIViewController!;
     

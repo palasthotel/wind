@@ -43,6 +43,22 @@ public protocol Instantiable: Component {
     init()
 }
 
+/// This specialised Subprotocol is telling Wind that your Component
+/// is meant to be instantiated, but: not from within the container.
+/// If you have parts of your dependencies inside of storyboards or
+/// if Foundation instantiates your class, this is the way to go to.
+///
+/// Beware: if your component is instantiable and will be instantiated
+/// outside of the container, it needs to have it's own lifecycle.
+/// As Wind doesn't want to leak, ForeignInstantiable Components
+/// are only weakly referenced everywhere.
+/// So: if you use this, beware that the lifecycle will be kept as-is.
+/// 
+/// Important: as Wind needs to "see" new instances, an extension provides your implementation
+/// with a new method `resolveMe(in container:Container)`
+/// You have to call this method after initialization is complete.
+/// It will trigger a complete roundtrip through all known objects and instances and
+/// will try to resolve all problems.
 public protocol ForeignInstantiable : Component {
 
 }

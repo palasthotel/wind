@@ -29,6 +29,7 @@ internal class DirectComponentFactory<Item:Component,PublicInterface>:Component,
             return nil;
         }
         let instance = Item()
+        //TODO: if it's weakly dependency aware, we have to keep a reference and fullfill it whenever needed.
         try! Container.resolve(for: instance);
         return instance as? T
     }
@@ -42,6 +43,7 @@ internal class IndirectComponentFactory<Item:Component,PublicInterface,Dependenc
     override func resolve(on consumer: Component) {
         if (consumer is DependencyDetection) {
             let instance = Item()
+            //TODO: if it's weakly dependency aware, we have to keep a reference and fullfill it whenever needed.
             try! Container.resolve(for:instance)
             consumer.fill(dependency: PublicInterface.self, with: instance)
         }

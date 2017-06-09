@@ -9,7 +9,7 @@
 import Foundation
 
 
-public class ForeignSimpleResolver<DependencyToken,Type>:Resolver {
+internal class ForeignSimpleResolver<DependencyToken,Type>:Resolver {
     weak var component:Component?;
     
     public func resolve(on consumer:Component) -> Void {
@@ -30,7 +30,7 @@ public class ForeignSimpleResolver<DependencyToken,Type>:Resolver {
     }
 }
 
-public class ForeignIndirectResolver<DependencyToken,PublicInterface,Type>:Resolver {
+internal class ForeignIndirectResolver<DependencyToken,PublicInterface,Type>:Resolver {
     weak var component:Component?;
     
     public func resolve(on consumer: Component) {
