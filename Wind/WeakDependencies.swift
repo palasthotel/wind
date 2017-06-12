@@ -17,6 +17,8 @@ public protocol WeakDependencyAware:Component {
     func fill(dependency:Any.Type, weaklyWith object:Component) -> Void;
 }
 
+/// WeakReference is used to store weak references to foreign instantiated components.
+/// you should almost never use it directly.
 public class WeakReference {
     weak var Instance:Component?;
     

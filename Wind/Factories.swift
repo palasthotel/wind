@@ -8,14 +8,32 @@
 
 import Foundation
 
+internal protocol Factory {
+    func getChildren() -> [Component];
+}
+
 /// This Factory can only resolve directly by instantiating and resolving a single component.
-internal class DirectComponentFactory<Item:Component,PublicInterface>:Component,AutomaticDependencyHandling,Resolver,ContainerDependency where Item:Instantiable {
+internal class DirectComponentFactory<Item:Component,PublicInterface>:Component,AutomaticDependencyHandling,Resolver,ContainerDependency,Factory where Item:Instantiable {
+    
+    class WeakReference {
+        weak var Instance:Item?;
+        
+        init(_ instance:Item) {
+            Instance = instance;
+        }
+    }
     
     required init() {
         
     }
     lazy var Container:Container! = self.component()
     var dependencies: [String : Component] = [:]
+    var children:[WeakReference] = [];
+    
+    func getChildren() -> [Component] {
+        return children.filter({$0.Instance != nil}).map({$0.Instance!});
+    }
+    
     func resolve(on consumer: Component) {
         //this is not supported by this factory
     }
@@ -29,7 +47,7 @@ internal class DirectComponentFactory<Item:Component,PublicInterface>:Component,
             return nil;
         }
         let instance = Item()
-        //TODO: if it's weakly dependency aware, we have to keep a reference and fullfill it whenever needed.
+        children.append(WeakReference(instance));
         try! Container.resolve(for: instance);
         return instance as? T
     }
@@ -43,7 +61,7 @@ internal class IndirectComponentFactory<Item:Component,PublicInterface,Dependenc
     override func resolve(on consumer: Component) {
         if (consumer is DependencyDetection) {
             let instance = Item()
-            //TODO: if it's weakly dependency aware, we have to keep a reference and fullfill it whenever needed.
+            children.append(WeakReference(instance));
             try! Container.resolve(for:instance)
             consumer.fill(dependency: PublicInterface.self, with: instance)
         }

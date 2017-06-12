@@ -97,6 +97,13 @@ public extension Component where Self:ForeignInstantiable & SimpleResolver {
         let resolver:ForeignSimpleResolver<DependencyToken,Self> = container.resolve();
         resolver.component = self;
         for component in container.components {
+            if(component is Factory) {
+                for instance in (component as! Factory).getChildren() {
+                    if(resolver.resolutionPossible(on: instance)) {
+                        resolver.resolve(on: instance);
+                    }
+                }
+            }
             if(resolver.resolutionPossible(on: component)) {
                 resolver.resolve(on: component);
             }
@@ -114,6 +121,13 @@ public extension Component where Self:ForeignInstantiable & IndirectResolver {
         let resolver:ForeignIndirectResolver<DependencyToken,PublicInterface,Self> = container.resolve();
         resolver.component = self;
         for component in container.components {
+            if(component is Factory) {
+                for instance in (component as! Factory).getChildren() {
+                    if(resolver.resolutionPossible(on: instance)) {
+                        resolver.resolve(on: instance);
+                    }
+                }
+            }
             if(resolver.resolutionPossible(on: component)) {
                 resolver.resolve(on: component);
             }

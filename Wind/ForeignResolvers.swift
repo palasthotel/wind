@@ -35,7 +35,7 @@ internal class ForeignIndirectResolver<DependencyToken,PublicInterface,Type>:Res
     
     public func resolve(on consumer: Component) {
         if(consumer is DependencyToken) {
-            (consumer as? WeakDependencyAware)?.fill(dependency: Type.self, weaklyWith: component!);
+            (consumer as? WeakDependencyAware)?.fill(dependency: PublicInterface.self, weaklyWith: component!);
         }
     }
     
