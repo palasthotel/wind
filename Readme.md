@@ -52,7 +52,7 @@ The sample looks like this:
 ```swift
 protocol MyComponentDependency { }
 protocol MyComponent {
-	func foo() -> Void;
+    func foo() -> Void;
 }
 
 class MyComponentImplementation: MyComponent,Singleton,AutomaticDependencyHandling,IndirectResolver {
@@ -165,3 +165,30 @@ var instance:MyComponent! = container.resolve();
 
 That's it. First we instantiate a new container. Next up we register our components by calling register() on the types. The static function is already provided by wind. 
 Finally, we have to call bootstrap() to set all resolver dependencies up. Afterwards we can start to resolve components out of the container, which will pull out all dependencies on the fly.
+
+## Advanced Topics
+
+### Components with foreign lifecycles
+
+When dealing with UIKit (especially UIViewController subclasses and UIViews), the system frameworks will create your instances when needed. Thus these Objects live outside of wind and neither get dependency resolution nor can be used to satisfy dependencies.
+
+There is no perfect solution for this - as wind isn't able to trigger the lifecycle of these classes as soon as another component depends on it. However what wind is capable of: resolve these kind of dependencies as soon as the object gets created and registers itself with the container.
+
+Your Component needs to adopt at least two protocols: `ForeignInstantiable` and one of the resolver protocols. As Wind now knows that this component will be provided at some point in the future, it can be registered with a container just as any other component. 
+As soon as your component gets instantiated, it needs to call `resolveMe(in container:Container)` in order to start late dependency resolution.
+
+Remember: your component has to follow a different lifecycle than the components managed by wind. That's the main reason why you're reading this paragraph. As such every consumer which depends on the foreign lifecycle component isn't allowed to keep a strong reference.
+
+So your consumer needs to conform to `WeakDependencyAware` - this protocol handles weak references. If you don't want to implement the details on your own, simply add a new variable:
+
+```swift
+var weakDependencies:[String:WeakReference] = [:]
+```
+
+and conform to `AutomaticWeakDependencyHandling` - this protocol provides you with a default implementation and adds a new function `weakComponent()`. This function is known to return nil often - whenever the component is not there. Your application needs to know wether the component is available. Wind isn't going to tell you. 
+
+### Storyboard Consumer Support
+
+Wind comes with support for storyboards: you can set your application Container on UIApplication. The container set there will be used to fullfill Dependencies for every Storboard. Additionally you can override the Container by setting one on your UIStoryboard instance.
+Besides that you need to add an Object of Wind's `StoryboardResolver` to your view controller and add your view controller as an outlet to it. As soon as your view controller gets instantiated the StoryboardResolver will start a dependency resolution for it using the container provided by UIStoryboard or UIApplication.
+
