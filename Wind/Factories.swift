@@ -27,7 +27,7 @@ internal class DirectComponentFactory<Item:Component,PublicInterface>:Component,
         
     }
     lazy var Container:Container! = self.component()
-    var dependencies: [String : Component] = [:]
+    var dependencies: [String : [Component]] = [:]
     var children:[WeakReference] = [];
     
     func getChildren() -> [Component] {

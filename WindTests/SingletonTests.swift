@@ -28,7 +28,7 @@ class SingletonTests: XCTestCase {
         typealias DependencyToken = Dependency
         typealias PublicInterface = VisibleComponent
         
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
         required init() {
             
@@ -37,7 +37,7 @@ class SingletonTests: XCTestCase {
     
     
     class Consumer : Singleton,AutomaticDependencyHandling,DirectResolver,Dependency {
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
         required init() {
             
@@ -49,7 +49,7 @@ class SingletonTests: XCTestCase {
     }
     
     class SimpleComponent: Singleton,AutomaticDependencyHandling,DirectResolver {
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
         required init() {
             
@@ -58,7 +58,7 @@ class SingletonTests: XCTestCase {
     }
     
     class ReallySimpleComponent: Singleton,AutomaticDependencyHandling,SimpleResolver {
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         typealias DependencyToken = Dependency
         
         required init() {

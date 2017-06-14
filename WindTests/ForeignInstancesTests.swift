@@ -23,19 +23,19 @@ class ForeignInstancesTests: XCTestCase {
     
     class ForeignSimpleInstance: ForeignInstantiable,SimpleResolver,AutomaticDependencyHandling {
         typealias DependencyToken = Dependency;
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
     }
     
     class ForeignIndirectInstance: VisibleComponent,ForeignInstantiable,IndirectResolver,AutomaticDependencyHandling {
         typealias DependencyToken = Dependency
         typealias PublicInterface = VisibleComponent
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
     }
     
     class ForeignConsumerSingleton: Singleton,Dependency,AutomaticDependencyHandling,AutomaticWeakDependencyHandling,DirectResolver {
-        var dependencies: [String : Component] = [:];
-        var weakDependencies: [String : WeakReference] = [:];
+        var dependencies: [String : [Component]] = [:];
+        var weakDependencies: [String : [WeakReference]] = [:];
         
         var Found:ForeignSimpleInstance? { get { return weakComponent(); } }
         var FoundIndirect:VisibleComponent? { get { return weakComponent(); } }
@@ -46,8 +46,8 @@ class ForeignInstancesTests: XCTestCase {
     }
     
     class ForeignConsumerInstance: Instantiable,Dependency,AutomaticWeakDependencyHandling,DirectResolver {
-        var dependencies: [String : Component] = [:]
-        var weakDependencies: [String : WeakReference] = [:]
+        var dependencies: [String : [Component]] = [:]
+        var weakDependencies: [String : [WeakReference]] = [:]
         
         var Found:ForeignSimpleInstance? { get { return weakComponent(); } }
         var FoundIndirect:VisibleComponent? { get { return weakComponent();}}

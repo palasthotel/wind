@@ -68,17 +68,25 @@ public protocol AutomaticDependencyHandling:Component {
     /// This Variable will hold all your dependencies.
     /// However there is no need to directly interact with it.
     /// Instead: use the function component() provided.
-    var dependencies:[String:Component] {get set}
+    var dependencies:[String:[Component]] {get set}
     
 }
 
 
 public extension AutomaticDependencyHandling {
     func fill(dependency:Any.Type, with:Component) -> Void {
-        dependencies[String(describing: dependency)] = with
+        let key=String(describing: dependency);
+        if(dependencies[key] == nil) {
+            dependencies[key] = [];
+        }
+        dependencies[String(describing: dependency)]?.append(with);
     }
     func component<T>() -> T! {
-        return dependencies[String(describing:T.self)] as? T
+        return dependencies[String(describing:T.self)]?.first as? T
+    }
+    
+    func components<T>() -> [T] {
+        return dependencies[String(describing:T.self)] as! [T];
     }
 }
 

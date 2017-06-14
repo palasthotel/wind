@@ -46,7 +46,7 @@ class FileManagerConsumer: Instantiable,AutomaticDependencyHandling,DirectResolv
     
     var Found:FileManager! {get { return component()} }
     
-    var dependencies: [String : Component] = [:];
+    var dependencies: [String : [Component]] = [:];
     
     required init() {
         
@@ -69,7 +69,7 @@ class WindTests: XCTestCase {
     class ComponentA:Singleton,AutomaticDependencyHandling,SimpleResolver,DependencyB {
         typealias DependencyToken = DependencyA;
         
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
         required init() {
             
@@ -79,7 +79,7 @@ class WindTests: XCTestCase {
     class ComponentB:Singleton,AutomaticDependencyHandling,SimpleResolver,DependencyA {
         typealias DependencyToken = DependencyB;
         
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
         required init() {
             

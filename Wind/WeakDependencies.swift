@@ -28,16 +28,33 @@ public class WeakReference {
 }
 
 public protocol AutomaticWeakDependencyHandling:AutomaticDependencyHandling,WeakDependencyAware {
-    var weakDependencies:[String:WeakReference] {get set}
+    var weakDependencies:[String:[WeakReference]] {get set}
 }
 
 public extension AutomaticWeakDependencyHandling {
     func fill(dependency:Any.Type, weaklyWith object:Component) -> Void {
-        weakDependencies[String(describing:dependency)] = WeakReference(pointingAt:object);
+        let key=String(describing:dependency);
+        if(weakDependencies[key] == nil) {
+            weakDependencies[key] = [];
+        }
+        weakDependencies[key]?.append(WeakReference(pointingAt:object));
     }
     
     func weakComponent<T>() -> T? {
-        return weakDependencies[String(describing:T.self)]?.Instance as? T;
+        let options = weakDependencies[String(describing:T.self)];
+        guard let possibleoptions = options else {
+            return nil;
+        }
+        return possibleoptions.filter({$0.Instance != nil}).first?.Instance as? T;
+    }
+    
+    func weakComponents<T>() -> [T] {
+        let options = weakDependencies[String(describing:T.self)];
+        guard let possibleoptions = options else {
+            return [];
+        }
+        let living = possibleoptions.filter({$0.Instance != nil}).map({$0.Instance! as! T});
+        return living;
     }
 }
 

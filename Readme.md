@@ -33,7 +33,7 @@ protocol MyComponentDependency { }
 class MyComponent: Singleton,AutomaticDependencyHandling,SimpleResolver {
     typealias DependencyToken = MyComponentDependency
 
-    var dependencies:[String:Any] = [:]
+    var dependencies:[String:[Component]] = [:]
 
     required init() {
 
@@ -59,7 +59,7 @@ class MyComponentImplementation: MyComponent,Singleton,AutomaticDependencyHandli
     typealias DependencyToken = MyComponentDependency
     typealias PublicInterface = MyComponent
 
-    var dependencies:[String:Any] = [:]
+    var dependencies:[String:[Component]] = [:]
 
     required init() {
 
@@ -80,7 +80,7 @@ So, how do you get your dependencies: that's plain simple:
 ```swift
 
 class Consumer: Component,AutomaticDependencyHandling,SimpleResolver,Singleton,MyComponentDependency {
-    var dependencies: [String : Component] = [:];
+    var dependencies: [String : [Component]] = [:];
     
     required init() {
 
@@ -93,7 +93,7 @@ This is essentially all you need. If you now want to access your dependency, you
 ```swift
 
 class Consumer: Component,AutomaticDependencyHandling,SimpleResolver,Singleton,MyComponentDependency {
-    var dependencies: [String : Component] = [:];
+    var dependencies: [String : [Component]] = [:];
     
     required init() {
 
@@ -111,7 +111,7 @@ As You might already notice: wind does not support constructor injection. So you
 ```swift
 
 class Consumer: Component,AutomaticDependencyHandling,SimpleResolver,Singleton,MyComponentDependency {
-    var dependencies: [String : Component] = [:];
+    var dependencies: [String : [Component]] = [:];
     
     required init() {
 
@@ -135,7 +135,7 @@ extension MyComponentDependency where Self:AutomaticDependencyHandling {
 
 
 class Consumer: Component,AutomaticDependencyHandling,SimpleResolver,Singleton,MyComponentDependency {
-    var dependencies: [String : Component] = [:];
+    var dependencies: [String : [Component]] = [:];
     
     required init() {
 
@@ -182,7 +182,7 @@ Remember: your component has to follow a different lifecycle than the components
 So your consumer needs to conform to `WeakDependencyAware` - this protocol handles weak references. If you don't want to implement the details on your own, simply add a new variable:
 
 ```swift
-var weakDependencies:[String:WeakReference] = [:]
+var weakDependencies:[String:[WeakReference]] = [:]
 ```
 
 and conform to `AutomaticWeakDependencyHandling` - this protocol provides you with a default implementation and adds a new function `weakComponent()`. This function is known to return nil often - whenever the component is not there. Your application needs to know wether the component is available. Wind isn't going to tell you. 
@@ -192,3 +192,9 @@ and conform to `AutomaticWeakDependencyHandling` - this protocol provides you wi
 Wind comes with support for storyboards: you can set your application Container on UIApplication. The container set there will be used to fullfill Dependencies for every Storboard. Additionally you can override the Container by setting one on your UIStoryboard instance.
 Besides that you need to add an Object of Wind's `StoryboardResolver` to your view controller and add your view controller as an outlet to it. As soon as your view controller gets instantiated the StoryboardResolver will start a dependency resolution for it using the container provided by UIStoryboard or UIApplication.
 
+### Multiple Components filling the same dependency
+
+Sometimes you have different components all conforming to the same protocol - by design. And you want all those components to be provided to you. That's built into wind and enabled by default. All you have to do is use a different Function to fetch the dependencies: instead of `component()` simply use `components()`. Wind will automatically provide you with all matching components (if they advertised it correctly). 
+The same is true for classes with a foreign lifecycle. However you have to call `weakComponents()` instead of `weakComponent()` for those. 
+
+Other than with strong dependencies Wind might inject the same object multiple times into your consumer. Every weak component will be resolved once per `resoleMe(in container:Container)` call. Calling it multiple times will provide it multiple times.

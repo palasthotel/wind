@@ -19,7 +19,7 @@ public class Container:Component,AutomaticDependencyHandling,SimpleResolver {
         case cycleDetected([Component])
     }
     
-    public var dependencies: [String : Component] = [:]
+    public var dependencies: [String : [Component]] = [:]
     
     public typealias DependencyToken = ContainerDependency
     var components:[Component] = []

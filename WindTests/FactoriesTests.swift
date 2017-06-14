@@ -13,7 +13,7 @@ import XCTest
 class FactoriesTests: XCTestCase {
 
     class Consumer : Singleton,AutomaticDependencyHandling,DirectResolver {
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
         required init() {
             
@@ -22,7 +22,7 @@ class FactoriesTests: XCTestCase {
     }
     
     class DirectInstantiableComponent: Instantiable,AutomaticDependencyHandling,DirectResolver {
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
         required init() {
             
@@ -33,7 +33,7 @@ class FactoriesTests: XCTestCase {
     class IndirectInstantiableComponent: VisibleComponent,AutomaticDependencyHandling,Instantiable,IndirectResolver {
         typealias DependencyToken = Dependency
         typealias PublicInterface = VisibleComponent
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
         required init() {
             
@@ -41,7 +41,7 @@ class FactoriesTests: XCTestCase {
     }
     
     class IndirectInstantiableConsumer: Component,AutomaticDependencyHandling,Singleton,DirectResolver,Dependency {
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
         required init() {
             
@@ -52,7 +52,7 @@ class FactoriesTests: XCTestCase {
     }
 
     class SimpleInstantiableComponent: Instantiable,AutomaticDependencyHandling,SimpleResolver {
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         typealias DependencyToken = Dependency
         required init() {
             
@@ -60,7 +60,7 @@ class FactoriesTests: XCTestCase {
     }
     
     class SimpleInstantiableConsumer: Singleton,AutomaticDependencyHandling,DirectResolver,Dependency {
-        var dependencies: [String : Component] = [:];
+        var dependencies: [String : [Component]] = [:];
         
         required init() {
             
