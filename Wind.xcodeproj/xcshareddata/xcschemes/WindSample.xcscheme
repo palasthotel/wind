@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9676145D1EE6F0880045FBA3"
-               BuildableName = "Wind.framework"
-               BlueprintName = "Wind"
-               ReferencedContainer = "container:Wind.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "NO"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "9607F0121EEAA9AF0010C7FF"
                BuildableName = "WindSample.app"
                BlueprintName = "WindSample"
@@ -40,26 +26,15 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "967614661EE6F0880045FBA3"
-               BuildableName = "WindTests.xctest"
-               BlueprintName = "WindTests"
-               ReferencedContainer = "container:Wind.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9676145D1EE6F0880045FBA3"
-            BuildableName = "Wind.framework"
-            BlueprintName = "Wind"
+            BlueprintIdentifier = "9607F0121EEAA9AF0010C7FF"
+            BuildableName = "WindSample.app"
+            BlueprintName = "WindSample"
             ReferencedContainer = "container:Wind.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -76,15 +51,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9676145D1EE6F0880045FBA3"
-            BuildableName = "Wind.framework"
-            BlueprintName = "Wind"
+            BlueprintIdentifier = "9607F0121EEAA9AF0010C7FF"
+            BuildableName = "WindSample.app"
+            BlueprintName = "WindSample"
             ReferencedContainer = "container:Wind.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -94,15 +70,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9676145D1EE6F0880045FBA3"
-            BuildableName = "Wind.framework"
-            BlueprintName = "Wind"
+            BlueprintIdentifier = "9607F0121EEAA9AF0010C7FF"
+            BuildableName = "WindSample.app"
+            BlueprintName = "WindSample"
             ReferencedContainer = "container:Wind.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
