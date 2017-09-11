@@ -19,7 +19,7 @@ extension SecondViewControllerDependency where Self:AutomaticWeakDependencyHandl
 
 class SecondViewController: UIViewController,ForeignInstantiable,SimpleResolver,AutomaticDependencyHandling {
 
-    var dependencies: [String : Component] = [:];
+    var dependencies: [String : [Component]] = [:];
     
     typealias DependencyToken = SecondViewControllerDependency
     override func viewDidLoad() {

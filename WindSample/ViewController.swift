@@ -11,7 +11,7 @@ import Wind
 
 class ViewController: UIViewController,AutomaticDependencyHandling,DirectResolver,AppDelegateDependency {
 
-    var dependencies: [String : Component] = [:]
+    var dependencies: [String : [Component]] = [:]
     
     @IBOutlet weak var label: UILabel!
     override func viewDidLoad() {

@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,ForeignSingleton,SimpleRes
 
     typealias DependencyToken = AppDelegateDependency;
     
-    var dependencies: [String : Component] = [:];
-    var weakDependencies: [String : WeakReference] = [:];
+    var dependencies: [String : [Component]] = [:];
+    var weakDependencies: [String : [WeakReference]] = [:];
     
     static var instance:AppDelegate?;
     
