@@ -72,20 +72,20 @@ internal class IndirectComponentFactory<Item:Component,PublicInterface,Dependenc
     }
 }
 
-extension Instantiable where Self:DirectResolver & Component {
+public extension Instantiable where Self:DirectResolver & Component {
     static func buildFactory() -> Resolver {
         return DirectComponentFactory<Self,Self>();
     }
 }
 
-extension Instantiable where Self:SimpleResolver & Component {
+public extension Instantiable where Self:SimpleResolver & Component {
     static func buildFactory() -> Resolver {
         let factory:IndirectComponentFactory<Self,Self,DependencyToken> = IndirectComponentFactory();
         return factory;
     }
 }
 
-extension Instantiable where Self:IndirectResolver & Component {
+public extension Instantiable where Self:IndirectResolver & Component {
     static func buildFactory() -> Resolver {
         return IndirectComponentFactory<Self,PublicInterface,DependencyToken>();
     }
