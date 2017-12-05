@@ -198,3 +198,17 @@ Sometimes you have different components all conforming to the same protocol - by
 The same is true for classes with a foreign lifecycle. However you have to call `weakComponents()` instead of `weakComponent()` for those. 
 
 Other than with strong dependencies Wind might inject the same object multiple times into your consumer. Every weak component will be resolved once per `resoleMe(in container:Container)` call. Calling it multiple times will provide it multiple times.
+
+### Core Data objects as consuming Components
+
+It might be helpful to have access to Components from within NSManagedObject subclasses. Wind can handle that. Just as UIStoryboard, NSManagedObjectContext also does have a `Container` property, which falls back to UIApplication if no Container is set.
+
+To get things going, a few things need to be done:
+
+* set your data model codegen to "Category/Extension".
+* add stub classes for each Entity but subclass from `WindManagedObject` instead of `NSManagedObject`
+
+Now you can add dependencies just as you normally would. Dependency resolution happens whenever an object is either inserted or when it's fetched after being in the fault state. So beware: whenever you try to use components, you have to ensure that the object is not a fault. So before accessing components, read any core data property first. That will resolve the fault and provide the object with all components.
+
+Have a look at the CoreDataSample project - especially the data model and `SampleEntity`.
+
