@@ -102,6 +102,7 @@ public extension Component where Self:Instantiable {
 
 public extension Component where Self:ForeignInstantiable & SimpleResolver {
     func resolveMe(in container:Container) -> Void {
+        try! container.resolve(for: self)
         let resolver:ForeignSimpleResolver<DependencyToken,Self> = container.resolve();
         resolver.component = self;
         for component in container.components {
@@ -126,6 +127,7 @@ public extension Component where Self:ForeignInstantiable & SimpleResolver {
 
 public extension Component where Self:ForeignInstantiable & IndirectResolver {
     func resolveMe(in container:Container) -> Void {
+        try! container.resolve(for: self)
         let resolver:ForeignIndirectResolver<DependencyToken,PublicInterface,Self> = container.resolve();
         resolver.component = self;
         for component in container.components {
