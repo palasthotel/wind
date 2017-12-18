@@ -71,7 +71,7 @@ public class Container:Component,AutomaticDependencyHandling,SimpleResolver {
             }
             resolver.resolve(on: consumer)
         }
-        if(consumer is Resolver) {
+        if(consumer is Resolver && !(consumer is ForeignInstantiable)) {
             readyResolvers.append(consumer as! Resolver);
         }
 
