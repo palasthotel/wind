@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 private struct AssociatedKeys {
     static var container = "wind_container";
