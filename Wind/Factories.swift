@@ -13,7 +13,7 @@ internal protocol Factory {
 }
 
 /// This Factory can only resolve directly by instantiating and resolving a single component.
-internal class DirectComponentFactory<Item:Component,PublicInterface>:Component,AutomaticDependencyHandling,Resolver,ContainerDependency,Factory where Item:Instantiable {
+internal class DirectComponentFactory<Item,PublicInterface>:Component,AutomaticDependencyHandling,Resolver,ContainerDependency,Factory where Item:Instantiable {
     
     class WeakReference {
         weak var Instance:Item?;
@@ -54,7 +54,7 @@ internal class DirectComponentFactory<Item:Component,PublicInterface>:Component,
 }
 
 /// This Factory is capable of detecting dependencies by using a dependency type hint.
-internal class IndirectComponentFactory<Item:Component,PublicInterface,DependencyDetection>:DirectComponentFactory<Item,PublicInterface> where Item:Instantiable{
+internal class IndirectComponentFactory<Item,PublicInterface,DependencyDetection>:DirectComponentFactory<Item,PublicInterface> where Item:Instantiable{
     required init() {
         
     }
@@ -72,20 +72,20 @@ internal class IndirectComponentFactory<Item:Component,PublicInterface,Dependenc
     }
 }
 
-public extension Instantiable where Self:DirectResolver & Component {
+public extension Instantiable where Self:DirectResolver {
     static func buildFactory() -> Resolver {
         return DirectComponentFactory<Self,Self>();
     }
 }
 
-public extension Instantiable where Self:SimpleResolver & Component {
+public extension Instantiable where Self:SimpleResolver {
     static func buildFactory() -> Resolver {
         let factory:IndirectComponentFactory<Self,Self,DependencyToken> = IndirectComponentFactory();
         return factory;
     }
 }
 
-public extension Instantiable where Self:IndirectResolver & Component {
+public extension Instantiable where Self:IndirectResolver {
     static func buildFactory() -> Resolver {
         return IndirectComponentFactory<Self,PublicInterface,DependencyToken>();
     }
