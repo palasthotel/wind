@@ -27,6 +27,13 @@
 		9648DEDB1FD6D25900FC2B8C /* Wind.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9676145E1EE6F0880045FBA3 /* Wind.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9648DEE01FD6D32E00FC2B8C /* SampleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648DEDF1FD6D32E00FC2B8C /* SampleEntity.swift */; };
 		9648DEE21FD6D3A700FC2B8C /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648DEE11FD6D3A700FC2B8C /* DateFormatter.swift */; };
+		966332DB2052AF7F002614E7 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967614781EE6F0B50045FBA3 /* Component.swift */; };
+		966332DC2052AF7F002614E7 /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676147A1EE6F1F70045FBA3 /* Resolver.swift */; };
+		966332DD2052AF7F002614E7 /* Resolvers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676147C1EE6F2500045FBA3 /* Resolvers.swift */; };
+		966332DE2052AF7F002614E7 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676147E1EE6F2E30045FBA3 /* Container.swift */; };
+		966332DF2052AF7F002614E7 /* Factories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967614801EE6F3560045FBA3 /* Factories.swift */; };
+		966332E02052AF7F002614E7 /* WeakDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F02A1EEABC520010C7FF /* WeakDependencies.swift */; };
+		966332E12052AF7F002614E7 /* ForeignResolvers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607F02C1EEABFB90010C7FF /* ForeignResolvers.swift */; };
 		967614681EE6F0880045FBA3 /* Wind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9676145E1EE6F0880045FBA3 /* Wind.framework */; };
 		9676146D1EE6F0880045FBA3 /* WindTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676146C1EE6F0880045FBA3 /* WindTests.swift */; };
 		9676146F1EE6F0880045FBA3 /* Wind.h in Headers */ = {isa = PBXBuildFile; fileRef = 967614611EE6F0880045FBA3 /* Wind.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -114,6 +121,7 @@
 		9648DED61FD6D21C00FC2B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9648DEDF1FD6D32E00FC2B8C /* SampleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleEntity.swift; sourceTree = "<group>"; };
 		9648DEE11FD6D3A700FC2B8C /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		966332D22052AF63002614E7 /* libWindStatic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWindStatic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9676145E1EE6F0880045FBA3 /* Wind.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Wind.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		967614611EE6F0880045FBA3 /* Wind.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wind.h; sourceTree = "<group>"; };
 		967614621EE6F0880045FBA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -147,6 +155,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9648DEDA1FD6D25900FC2B8C /* Wind.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		966332CF2052AF63002614E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +232,7 @@
 				967614671EE6F0880045FBA3 /* WindTests.xctest */,
 				9607F0131EEAA9AF0010C7FF /* WindSample.app */,
 				9648DEC51FD6D21C00FC2B8C /* CoreDataSample.app */,
+				966332D22052AF63002614E7 /* libWindStatic.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -255,6 +271,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		966332D02052AF63002614E7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9676145B1EE6F0880045FBA3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -303,6 +326,23 @@
 			productName = CoreDataSample;
 			productReference = 9648DEC51FD6D21C00FC2B8C /* CoreDataSample.app */;
 			productType = "com.apple.product-type.application";
+		};
+		966332D12052AF63002614E7 /* WindStatic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 966332D82052AF63002614E7 /* Build configuration list for PBXNativeTarget "WindStatic" */;
+			buildPhases = (
+				966332CE2052AF63002614E7 /* Sources */,
+				966332CF2052AF63002614E7 /* Frameworks */,
+				966332D02052AF63002614E7 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WindStatic;
+			productName = WindStatic;
+			productReference = 966332D22052AF63002614E7 /* libWindStatic.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 		9676145D1EE6F0880045FBA3 /* Wind */ = {
 			isa = PBXNativeTarget;
@@ -359,6 +399,10 @@
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
 					};
+					966332D12052AF63002614E7 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 					9676145D1EE6F0880045FBA3 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = L8585CEAXA;
@@ -389,6 +433,7 @@
 				967614661EE6F0880045FBA3 /* WindTests */,
 				9607F0121EEAA9AF0010C7FF /* WindSample */,
 				9648DEC41FD6D21C00FC2B8C /* CoreDataSample */,
+				966332D12052AF63002614E7 /* WindStatic */,
 			);
 		};
 /* End PBXProject section */
@@ -450,6 +495,20 @@
 				9648DED01FD6D21C00FC2B8C /* CoreDataSample.xcdatamodeld in Sources */,
 				9648DEC81FD6D21C00FC2B8C /* AppDelegate.swift in Sources */,
 				9648DEE21FD6D3A700FC2B8C /* DateFormatter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		966332CE2052AF63002614E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				966332DB2052AF7F002614E7 /* Component.swift in Sources */,
+				966332DC2052AF7F002614E7 /* Resolver.swift in Sources */,
+				966332DD2052AF7F002614E7 /* Resolvers.swift in Sources */,
+				966332DE2052AF7F002614E7 /* Container.swift in Sources */,
+				966332DF2052AF7F002614E7 /* Factories.swift in Sources */,
+				966332E02052AF7F002614E7 /* WeakDependencies.swift in Sources */,
+				966332E12052AF7F002614E7 /* ForeignResolvers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +673,52 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		966332D92052AF63002614E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_MODULE_NAME = Wind;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		966332DA2052AF63002614E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_MODULE_NAME = Wind;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -800,6 +905,15 @@
 			buildConfigurations = (
 				9648DED81FD6D21C00FC2B8C /* Debug */,
 				9648DED91FD6D21C00FC2B8C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		966332D82052AF63002614E7 /* Build configuration list for PBXNativeTarget "WindStatic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				966332D92052AF63002614E7 /* Debug */,
+				966332DA2052AF63002614E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
