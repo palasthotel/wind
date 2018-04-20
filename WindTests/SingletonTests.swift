@@ -87,7 +87,7 @@ class SingletonTests: XCTestCase {
         let result:Consumer! = cnt.resolve();
         XCTAssertNotNil(result);
         XCTAssertNotNil(result.Found);
-        XCTAssertNil(result.NotFound);
+        XCTAssertNotNil(result.NotFound);
     }
     
     func testDirectManualResolutionOnSingletons() {
