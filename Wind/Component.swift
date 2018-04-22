@@ -87,13 +87,17 @@ public extension AutomaticDependencyHandling {
 		if let component = dependencies[key]?.first as? T {
 			return component
 		} else {
-			print("Key \"\(key)\" not found in dependencies for consumer \"\(type(of: self))\". It only has:\n\(self.dependiesDescription())")
-			
 			for (_, _dependencies) in dependencies {
-				guard let d = _dependencies.first as? T else {
+				guard let dependency = _dependencies.first as? T else {
 					continue
 				}
-				return d
+				
+				print("Key \"\(key)\" not found in dependencies for consumer \"\(type(of: self))\". It only has:\n\(self.dependiesDescription())")
+				return dependency
+			}
+			
+			if !containerHasDependencyForType(T.self) {
+				print("Type \(T.self) not found in container")
 			}
 			
 			return nil
@@ -186,6 +190,18 @@ public extension Component where Self:ForeignSingleton {
 }
 
 private extension Component where Self: AutomaticDependencyHandling {
+	func containerHasDependencyForType<T>(_ type: T.Type) -> Bool {
+		guard let components = UIApplication.shared.Container?.components else {
+			return false
+		}
+		
+		var componentFound = false
+		for component in components where component is T {
+			componentFound = true
+		}
+		return componentFound
+	}
+	
 	func dependiesDescription() -> String {
 		return dependencies.map { (key, value) in
 			return "\(key) -> \(type(of: value.first!))"
