@@ -191,7 +191,7 @@ public extension Component where Self:ForeignSingleton {
 
 private extension Component where Self: AutomaticDependencyHandling {
 	func containerHasDependencyForType<T>(_ type: T.Type) -> Bool {
-		guard let components = UIApplication.shared.Container?.components else {
+		guard let components = Application.shared.Container?.components else {
 			return false
 		}
 		
