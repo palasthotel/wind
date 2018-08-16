@@ -108,7 +108,7 @@ class FactoriesTests: XCTestCase {
         let item:IndirectInstantiableConsumer! = cnt.resolve();
         XCTAssertNotNil(item);
         XCTAssertNotNil(item.Found);
-        XCTAssertNil(item.NotFOund);
+        XCTAssertNotNil(item.NotFOund);
     }
     
     func testIndirectSimpleResolutionOnFactories() {
