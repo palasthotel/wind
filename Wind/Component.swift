@@ -15,7 +15,10 @@ public protocol Component:class {
 	/// There is no need to implement it as we're providing a very
 	/// valuable default.
 	func fill(dependency:Any.Type, with object:Component) -> Void
+    
+    func dependenciesFullFilled() -> Void;
 }
+
 
 /// ForeignSingleton classes get created outside of the container.
 /// Use this feature to blend in UIKit Components like FileManager and UserDefaults.
@@ -89,7 +92,8 @@ public extension AutomaticDependencyHandling {
 		} else {
             print("Key \"\(key)\" not found in dependencies for consumer \"\(type(of: self))\". It only has:\n\(self.dependiesDescription())")
 			
-			if !containerHasDependencyForType(T.self) {
+            let result = containerHasDependencyForType(T.self)
+			if  result == false {
 				print("Type \(T.self) not found in container")
 			}
 			
@@ -100,6 +104,10 @@ public extension AutomaticDependencyHandling {
 	func components<T>() -> [T] {
 		return dependencies[String(describing:T.self)] as! [T];
 	}
+}
+
+public extension Component {
+    func dependenciesFullFilled() -> Void { }
 }
 
 public extension Component where Self:Instantiable {
@@ -183,10 +191,11 @@ public extension Component where Self:ForeignSingleton {
 }
 
 private extension Component where Self: AutomaticDependencyHandling {
-	func containerHasDependencyForType<T>(_ type: T.Type) -> Bool {
+	func containerHasDependencyForType<T>(_ type: T.Type) -> Bool? {
         let container = ObjectRegistry.container(for: self);
 		guard let components = container?.components else {
-			return false
+            print("Unable to find responsible container");
+			return nil
 		}
 		
 		var componentFound = false

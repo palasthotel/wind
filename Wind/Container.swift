@@ -74,7 +74,8 @@ public class Container:Component,AutomaticDependencyHandling,SimpleResolver {
         if(consumer is Resolver && !(consumer is ForeignInstantiable)) {
             readyResolvers.append(consumer as! Resolver);
         }
-
+        
+        consumer.dependenciesFullFilled();
     }
     
     public func resolve(for consumer:Component) throws -> Void {
