@@ -75,7 +75,7 @@ public class Container:Component,AutomaticDependencyHandling,SimpleResolver {
             readyResolvers.append(consumer as! Resolver);
         }
         ObjectRegistry.register(object: consumer, for: self);
-        consumer.dependenciesFullFilled();
+        consumer.dependenciesFullfilled();
     }
     
     public func resolve(for consumer:Component) throws -> Void {
