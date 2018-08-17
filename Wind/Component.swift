@@ -16,7 +16,9 @@ public protocol Component:class {
 	/// valuable default.
 	func fill(dependency:Any.Type, with object:Component) -> Void
     
-    func dependenciesFullFilled() -> Void;
+    /// This Function will be called when all dependencies has been provided
+    /// You don't have to implement it, a default implementation will be provided.
+    func dependenciesFullfilled() -> Void;
 }
 
 
@@ -107,7 +109,7 @@ public extension AutomaticDependencyHandling {
 }
 
 public extension Component {
-    func dependenciesFullFilled() -> Void { }
+    func dependenciesFullfilled() -> Void { }
 }
 
 public extension Component where Self:Instantiable {

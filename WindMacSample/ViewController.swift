@@ -27,7 +27,7 @@ class ViewController: NSViewController,DirectResolver,Component,AutomaticDepende
         }
     }
     
-    func dependenciesFullFilled() {
+    func dependenciesFullfilled() {
         self.text = self.appDelegate.hello();
     }
 
