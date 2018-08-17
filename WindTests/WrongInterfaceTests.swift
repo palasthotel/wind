@@ -65,7 +65,7 @@ class WrongInterfaceTests: XCTestCase {
 		XCTAssertNotNil(testConsumer)
 		
 		XCTAssertTrue(testConsumer is DependsOnTestDependency)
-		XCTAssertNotNil(testConsumer.dependency())
+		XCTAssertNil(testConsumer.dependency())
 		
 	}
 }
