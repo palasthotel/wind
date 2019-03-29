@@ -47,8 +47,8 @@
 		96875ABD2125B93A0026C10A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96875ABC2125B93A0026C10A /* ViewController.swift */; };
 		96875ABF2125B93B0026C10A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96875ABE2125B93B0026C10A /* Assets.xcassets */; };
 		96875AC22125B93B0026C10A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96875AC02125B93B0026C10A /* Main.storyboard */; };
-		96875AD02125BA5F0026C10A /* Wind_mac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3F10233211309FF00ED1E7B /* Wind_mac.framework */; };
-		96875AD12125BA5F0026C10A /* Wind_mac.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3F10233211309FF00ED1E7B /* Wind_mac.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		96875AD02125BA5F0026C10A /* Wind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3F10233211309FF00ED1E7B /* Wind.framework */; };
+		96875AD12125BA5F0026C10A /* Wind.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3F10233211309FF00ED1E7B /* Wind.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96875AD52125BC290026C10A /* ObjectRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96875AB22125B35F0026C10A /* ObjectRegistry.swift */; };
 		96875AD62125BC290026C10A /* ObjectRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96875AB22125B35F0026C10A /* ObjectRegistry.swift */; };
 		968948841EEAC53000A7140D /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968948831EEAC53000A7140D /* SecondViewController.swift */; };
@@ -130,7 +130,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				96875AD12125BA5F0026C10A /* Wind_mac.framework in Embed Frameworks */,
+				96875AD12125BA5F0026C10A /* Wind.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -186,7 +186,7 @@
 		96F7D1E71EEEC33800492E04 /* ForeignInstancesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForeignInstancesTests.swift; sourceTree = "<group>"; };
 		96F7D1EB1EF1105E00492E04 /* MultipleDependencyResolutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleDependencyResolutionTests.swift; sourceTree = "<group>"; };
 		B37B7A622089E5A00011844C /* WrongInterfaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrongInterfaceTests.swift; sourceTree = "<group>"; };
-		B3F10233211309FF00ED1E7B /* Wind_mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Wind_mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3F10233211309FF00ED1E7B /* Wind.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Wind.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3F1023521130A0000ED1E7B /* Wind_mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wind_mac.h; sourceTree = "<group>"; };
 		B3F1023621130A0000ED1E7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -234,7 +234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96875AD02125BA5F0026C10A /* Wind_mac.framework in Frameworks */,
+				96875AD02125BA5F0026C10A /* Wind.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,7 +301,7 @@
 				9607F0131EEAA9AF0010C7FF /* WindSample.app */,
 				9648DEC51FD6D21C00FC2B8C /* CoreDataSample.app */,
 				966332D22052AF63002614E7 /* libWindStatic.a */,
-				B3F10233211309FF00ED1E7B /* Wind_mac.framework */,
+				B3F10233211309FF00ED1E7B /* Wind.framework */,
 				96875AB82125B93A0026C10A /* WindMacSample.app */,
 			);
 			name = Products;
@@ -523,7 +523,7 @@
 			);
 			name = "Wind-mac";
 			productName = "Wind-mac";
-			productReference = B3F10233211309FF00ED1E7B /* Wind_mac.framework */;
+			productReference = B3F10233211309FF00ED1E7B /* Wind.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -1198,8 +1198,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.ben-boecker.Wind-mac";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = de.palasthotel.Wind;
+				PRODUCT_NAME = Wind;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1226,8 +1226,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.ben-boecker.Wind-mac";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = de.palasthotel.Wind;
+				PRODUCT_NAME = Wind;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
