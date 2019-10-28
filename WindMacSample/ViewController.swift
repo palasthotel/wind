@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import Wind_mac
+import Wind
 
 protocol DependsOnViewController { }
 class ViewController: NSViewController,DirectResolver,Component,AutomaticDependencyHandling,DependsOnAppDelegate,ForeignInstantiable {

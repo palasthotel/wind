@@ -7,7 +7,7 @@
 //
 
 import Cocoa
-import Wind_mac
+import Wind
 
 protocol DependsOnAppDelegate { }
 
@@ -30,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate,Component,ForeignSingleton,Si
     override init() {
         super.init();
         AppDelegate.instance=self;
-        var container = Container();
+        let container = Container();
         AppDelegate.register(in: container);
         try! container.bootstrap();
         NSApplication.shared.Container=container;
