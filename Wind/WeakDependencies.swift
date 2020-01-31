@@ -20,9 +20,9 @@ public protocol WeakDependencyAware:Component {
 /// WeakReference is used to store weak references to foreign instantiated components.
 /// you should almost never use it directly.
 public class WeakReference {
-    weak var Instance:Component?;
+    public weak var Instance:Component?;
     
-    init(pointingAt component:Component) {
+    public init(pointingAt component:Component) {
         Instance = component;
     }
 }
