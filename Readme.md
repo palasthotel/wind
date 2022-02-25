@@ -212,3 +212,6 @@ Now you can add dependencies just as you normally would. Dependency resolution h
 
 Have a look at the CoreDataSample project - especially the data model and `SampleEntity`.
 
+## License
+
+We want anyone to use Wind - in open source and commercial projects alike. Therefore we decided against an open source license and provide the code royalty-free and as-sis. Anyone is free to use it in any way possible. But: we're not responsible for any effect that wind has on a project. If you use it, you're using it at your own risk. 
