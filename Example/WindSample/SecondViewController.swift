@@ -25,7 +25,7 @@ class SecondViewController: UIViewController,ForeignInstantiable,SimpleResolver,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let container = self.storyboard?.Container {
+        if let container = self.storyboard?.container {
             self.resolveMe(in: container);
         }
         // Do any additional setup after loading the view.

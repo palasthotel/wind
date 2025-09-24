@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,ForeignSingleton,SimpleRes
         SecondViewController.register(in: cnt);
         
         try! cnt.bootstrap();
-        UIApplication.shared.Container = cnt;
+        UIApplication.shared.container = cnt;
     }
     
     var window: UIWindow?

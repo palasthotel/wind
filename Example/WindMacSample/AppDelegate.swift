@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate,Component,ForeignSingleton,Si
         let container = Container();
         AppDelegate.register(in: container);
         try! container.bootstrap();
-        NSApplication.shared.Container=container;
+        NSApplication.shared.container=container;
     }
     
     static func getForeignInstance() -> Component {

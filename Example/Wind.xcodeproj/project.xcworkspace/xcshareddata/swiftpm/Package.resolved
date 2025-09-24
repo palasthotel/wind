@@ -1,0 +1,15 @@
+{
+  "originHash" : "2712118ee0587347d231a33079a6267e82daa4f9bc4b77eee8784506f02fc302",
+  "pins" : [
+    {
+      "identity" : "wind",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/palasthotel/wind",
+      "state" : {
+        "branch" : "issue/11-update-to-swift-6-2",
+        "revision" : "366bbb566bccb452cdd1c6e72ae8f8f6e28e5b19"
+      }
+    }
+  ],
+  "version" : 3
+}

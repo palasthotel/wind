@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let container = Container()
         try! container.bootstrap();
         DateFormatter.register(in: container);
-        application.Container=container;
+        application.container=container;
         
         let entity = NSEntityDescription.insertNewObject(forEntityName: "SampleEntity", into: self.persistentContainer.viewContext) as! SampleEntity;
         entity.date = Date();
