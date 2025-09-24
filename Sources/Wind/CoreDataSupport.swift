@@ -15,7 +15,7 @@ private struct AssociatedKeys {
 }
 
 public extension NSManagedObjectContext {
-	var container: WindContainer? {
+	var container: Container? {
 		get {
 			let myInstance = (objc_getAssociatedObject(self, &AssociatedKeys.container) as? ContainerWrapper)?.instance
 			
@@ -36,7 +36,7 @@ public extension NSManagedObjectContext {
 
 open class WindManagedObject: NSManagedObject, AutomaticDependencyHandling, AutomaticWeakDependencyHandling {
 	
-	public var dependencies: [String: [WindComponent]] = [:]
+	public var dependencies: [String: [Component]] = [:]
 	public var weakDependencies: [String: [WeakReference]] = [:]
 	
 	open override func awakeFromFetch() {

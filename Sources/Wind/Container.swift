@@ -13,50 +13,50 @@ public protocol ContainerDependency {
 }
 
 
-public class WindContainer: WindComponent, AutomaticDependencyHandling, SimpleResolver {
+public class Container: Component, AutomaticDependencyHandling, SimpleResolver {
 	
 	public enum ResolutionError: Error {
-		case cycleDetected([WindComponent])
+		case cycleDetected([Component])
 	}
 	
-	public var dependencies: [String : [WindComponent]] = [:]
+	public var dependencies: [String : [Component]] = [:]
 	
 	public typealias DependencyToken = ContainerDependency
-	var components: [WindComponent] = []
-	var resolvers: [Resolver] = []
-	var readyResolvers: [Resolver] = []
+	var components: [Component] = []
+	var resolvers: [DependencyResolver] = []
+	var readyResolvers: [DependencyResolver] = []
 	
 	public required init() {
 		resolvers.append(self)
 		readyResolvers.append(self)
 	}
 	
-	public func register(component: WindComponent) -> Void {
+	public func register(component: Component) -> Void {
 		components.append(component)
 	}
 	
-	public func register(resolver: Resolver) -> Void {
+	public func register(resolver: DependencyResolver) -> Void {
 		resolvers.append(resolver)
-		if !(resolver is WindComponent) {
+		if !(resolver is Component) {
 			readyResolvers.append(resolver)
 		}
 	}
 	
 	public func bootstrap() throws {
-		for comp in resolvers.filter( { $0 is WindComponent } ).map( { $0 as! WindComponent }) {
+		for comp in resolvers.filter( { $0 is Component } ).map( { $0 as! Component }) {
 			try resolve(for: comp)
 		}
 	}
 	
-	func resolverIsReady(_ resolver: Resolver) -> Bool {
-		if resolver is WindComponent {
+	func resolverIsReady(_ resolver: DependencyResolver) -> Bool {
+		if resolver is Component {
 			return readyResolvers.contains(where: { $0 === resolver } )
 		}
 		
 		return true
 	}
 	
-	private func resolve(for consumer: WindComponent, alreadyResolving: [WindComponent]) throws -> Void {
+	private func resolve(for consumer: Component, alreadyResolving: [Component]) throws -> Void {
 		if alreadyResolving.contains(where: { $0 === consumer }) {
 			throw ResolutionError.cycleDetected(alreadyResolving)
 		}
@@ -70,21 +70,21 @@ public class WindContainer: WindComponent, AutomaticDependencyHandling, SimpleRe
 			}
 			
 			if !resolverIsReady(resolver) {
-				try resolve(for: resolver as! WindComponent, alreadyResolving: alreadyResolving + [consumer])
+				try resolve(for: resolver as! Component, alreadyResolving: alreadyResolving + [consumer])
 			}
 			
 			resolver.resolve(on: consumer)
 		}
 		
-		if consumer is Resolver && !(consumer is ForeignInstantiable) {
-			readyResolvers.append(consumer as! Resolver)
+		if consumer is DependencyResolver && !(consumer is ForeignInstantiable) {
+			readyResolvers.append(consumer as! DependencyResolver)
 		}
 		
 		ObjectRegistry.register(object: consumer, for: self)
 		consumer.dependenciesFullfilled()
 	}
 	
-	public func resolve(for consumer: WindComponent) throws -> Void {
+	public func resolve(for consumer: Component) throws -> Void {
 		try resolve(for: consumer, alreadyResolving: [])
 	}
 	

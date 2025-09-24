@@ -9,12 +9,12 @@
 import Foundation
 
 
-public protocol WindComponent: AnyObject {
+public protocol Component: AnyObject {
 	/// This Function will be used to provide your component
 	/// with all dependencies we found.
 	/// There is no need to implement it as we're providing a very
 	/// valuable default.
-	func fill(dependency: Any.Type, with object: WindComponent) -> Void
+	func fill(dependency: Any.Type, with object: Component) -> Void
 	
 	/// This Function will be called when all dependencies has been provided
 	/// You don't have to implement it, a default implementation will be provided.
@@ -24,14 +24,14 @@ public protocol WindComponent: AnyObject {
 
 /// ForeignSingleton classes get created outside of the container.
 /// Use this feature to blend in UIKit Components like FileManager and UserDefaults.
-public protocol ForeignSingleton: WindComponent {
-	static func getForeignInstance() -> WindComponent
+public protocol ForeignSingleton: Component {
+	static func getForeignInstance() -> Component
 }
 
 
 /// This specialised Subprotocol is telling Wind that your Component
 /// is meant to be used as a Singleton.
-public protocol Singleton: WindComponent {
+public protocol Singleton: Component {
 	/// As Wind will construct everything there needs to be a way to do so.
 	init()
 }
@@ -40,8 +40,8 @@ public protocol Singleton: WindComponent {
 /// is meant to be instantiated anew for every dependency.
 /// The buildFactory() method will be autoimplemented on a few occassions.
 /// Most of the time there is nothing you need to do.
-public protocol Instantiable: WindComponent {
-	static func buildFactory() -> Resolver
+public protocol Instantiable: Component {
+	static func buildFactory() -> DependencyResolver
 	
 	/// As Wind will construct everything there needs to be a way to do so.
 	init()
@@ -63,20 +63,20 @@ public protocol Instantiable: WindComponent {
 /// You have to call this method after initialization is complete.
 /// It will trigger a complete roundtrip through all known objects and instances and
 /// will try to resolve all problems.
-public protocol ForeignInstantiable: WindComponent {
+public protocol ForeignInstantiable: Component {
 }
 
 /// Use this protocol if you'd like to handle your dependencies automatically instead of implementing fill() on your own.
-public protocol AutomaticDependencyHandling: WindComponent {
+public protocol AutomaticDependencyHandling: Component {
 	/// This Variable will hold all your dependencies.
 	/// However there is no need to directly interact with it.
 	/// Instead: use the function component() provided.
-	var dependencies: [String: [WindComponent]] { get set }
+	var dependencies: [String: [Component]] { get set }
 }
 
 
 public extension AutomaticDependencyHandling {
-	func fill(dependency: Any.Type, with: WindComponent) -> Void {
+	func fill(dependency: Any.Type, with: Component) -> Void {
 		let key = String(describing: dependency)
 		
 		if dependencies[key] == nil {
@@ -109,24 +109,24 @@ public extension AutomaticDependencyHandling {
 	}
 }
 
-public extension WindComponent {
+public extension Component {
 	func dependenciesFullfilled() -> Void { }
 }
 
-public extension WindComponent where Self: Instantiable {
-	static func register(in container: WindContainer) -> Void {
+public extension Component where Self: Instantiable {
+	static func register(in container: Container) -> Void {
 		let resolver = Self.buildFactory()
 		
-		if resolver is WindComponent {
-			container.register(component: resolver as! WindComponent)
+		if resolver is Component {
+			container.register(component: resolver as! Component)
 		}
 		
 		container.register(resolver: resolver)
 	}
 }
 
-public extension WindComponent where Self: ForeignInstantiable & SimpleResolver {
-	func resolveMe(in container: WindContainer) -> Void {
+public extension Component where Self: ForeignInstantiable & SimpleResolver {
+	func resolveMe(in container: Container) -> Void {
 		try! container.resolve(for: self)
 		
 		let resolver: ForeignSimpleResolver<DependencyToken, Self> = container.resolve()
@@ -145,14 +145,14 @@ public extension WindComponent where Self: ForeignInstantiable & SimpleResolver 
 		}
 	}
 	
-	static func register(in container: WindContainer) -> Void {
+	static func register(in container: Container) -> Void {
 		let resolver = ForeignSimpleResolver<DependencyToken, Self>()
-		container.register(resolver: resolver as! Resolver)
+		container.register(resolver: resolver)
 	}
 }
 
-public extension WindComponent where Self: ForeignInstantiable & IndirectResolver {
-	func resolveMe(in container: WindContainer) -> Void {
+public extension Component where Self: ForeignInstantiable & IndirectResolver {
+	func resolveMe(in container: Container) -> Void {
 		try! container.resolve(for: self)
 		
 		let resolver: ForeignIndirectResolver<DependencyToken, PublicInterface, Self> = container.resolve()
@@ -171,35 +171,35 @@ public extension WindComponent where Self: ForeignInstantiable & IndirectResolve
 		}
 	}
 	
-	static func register(in container: WindContainer) -> Void {
+	static func register(in container: Container) -> Void {
 		let resolver = ForeignIndirectResolver<DependencyToken, PublicInterface, Self>()
-		container.register(resolver: resolver as! Resolver)
+		container.register(resolver: resolver)
 	}
 }
 
-public extension WindComponent where Self: Singleton {
-	static func register(in container: WindContainer) -> Void {
+public extension Component where Self: Singleton {
+	static func register(in container: Container) -> Void {
 		let instance = Self()
 		container.register(component: instance)
 		
-		if instance is Resolver {
-			container.register(resolver: instance as! Resolver)
+		if instance is DependencyResolver {
+			container.register(resolver: instance as! DependencyResolver)
 		}
 	}
 }
 
-public extension WindComponent where Self: ForeignSingleton {
-	static func register(in container: WindContainer) -> Void {
+public extension Component where Self: ForeignSingleton {
+	static func register(in container: Container) -> Void {
 		let instance = self.getForeignInstance()
 		container.register(component: instance)
 		
-		if instance is Resolver {
-			container.register(resolver: instance as! Resolver)
+		if instance is DependencyResolver {
+			container.register(resolver: instance as! DependencyResolver)
 		}
 	}
 }
 
-private extension WindComponent where Self: AutomaticDependencyHandling {
+private extension Component where Self: AutomaticDependencyHandling {
 	func containerHasDependencyForType<T>(_ type: T.Type) -> Bool? {
 		guard let components = ObjectRegistry.container(for: self)?.components else {
 			print("Unable to find responsible container")

@@ -27,7 +27,7 @@ private struct AssociatedKeys {
 }
 
 @objc public class ContainerWrapper: NSObject {
-	var instance: WindContainer?
+	var instance: Container?
 	
 	override init() {
 		super.init()
@@ -36,7 +36,7 @@ private struct AssociatedKeys {
 
 
 public extension Application {
-	var container: WindContainer? {
+	var container: Container? {
 		get {
 			return (objc_getAssociatedObject(self, &AssociatedKeys.container) as? ContainerWrapper)?.instance
 		}
@@ -49,7 +49,7 @@ public extension Application {
 }
 
 public extension Storyboard {
-	var container: WindContainer? {
+	var container: Container? {
 		get {
 			let myInstance = (objc_getAssociatedObject(self, &AssociatedKeys.container) as? ContainerWrapper)?.instance
 			
@@ -72,7 +72,7 @@ public extension Storyboard {
 	@IBOutlet var viewController: ViewController!
 	
 	public override func awakeFromNib() {
-		if let consumer = viewController as? WindComponent {
+		if let consumer = viewController as? Component {
 			try! viewController.storyboard?.container?.resolve(for: consumer)
 		}
 	}

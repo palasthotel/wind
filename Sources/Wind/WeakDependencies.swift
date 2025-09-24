@@ -12,18 +12,18 @@ import Foundation
 /// If your component depends on a foreign instantiated object,
 /// it needs to be aware of weak dependencies.
 /// If you don't want to think about it, simply conform to AutomaticWeakDependencyHandling.
-public protocol WeakDependencyAware: WindComponent {
+public protocol WeakDependencyAware: Component {
 	/// Components handed in via this function are not allowed to be
 	/// strongly referenced.
-	func fill(dependency: Any.Type, weaklyWith object: WindComponent) -> Void
+	func fill(dependency: Any.Type, weaklyWith object: Component) -> Void
 }
 
 /// WeakReference is used to store weak references to foreign instantiated components.
 /// you should almost never use it directly.
 public class WeakReference {
-	public weak var instance: WindComponent?
+	public weak var instance: Component?
 	
-	public init(pointingAt component: WindComponent) {
+	public init(pointingAt component: Component) {
 		self.instance = component
 	}
 }
@@ -33,7 +33,7 @@ public protocol AutomaticWeakDependencyHandling:AutomaticDependencyHandling,Weak
 }
 
 public extension AutomaticWeakDependencyHandling {
-	func fill(dependency: Any.Type, weaklyWith object: WindComponent) -> Void {
+	func fill(dependency: Any.Type, weaklyWith object: Component) -> Void {
 		let key = String(describing: dependency)
 				
 		if weakDependencies[key] == nil {

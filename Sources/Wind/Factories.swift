@@ -9,17 +9,12 @@
 import Foundation
 
 internal protocol WindFactory {
-	func getChildren() -> [WindComponent]
+	func getChildren() -> [Component]
 }
 
-/// This Factory can only resolve directly by instantiating and resolving a single component.
-protocol DirectComponentFactoryProtocols: WindComponent,
-										  AutomaticDependencyHandling,
-										  //Resolver,
-										  ContainerDependency,
-										  WindFactory { }
 
-internal class DirectComponentFactory<Item, PublicInterface>: DirectComponentFactoryProtocols where Item: Instantiable {
+/// This Factory can only resolve directly by instantiating and resolving a single component.
+internal class DirectComponentFactory<Item, PublicInterface>: Component, AutomaticDependencyHandling, DependencyResolver, ContainerDependency, WindFactory where Item: Instantiable {
 	class WeakReference {
 		weak var instance: Item?
 		
@@ -30,19 +25,19 @@ internal class DirectComponentFactory<Item, PublicInterface>: DirectComponentFac
 	
 	required init() { }
 	
-	lazy var Container: WindContainer! = self.component()
-	var dependencies: [String : [WindComponent]] = [:]
+	lazy var Container: Container! = self.component()
+	var dependencies: [String : [Component]] = [:]
 	var children: [WeakReference] = []
 	
-	func getChildren() -> [WindComponent] {
+	func getChildren() -> [Component] {
 		children.filter({$0.instance != nil}).map({$0.instance!});
 	}
-	
-	func resolve(on consumer: WindComponent) {
+
+	func resolve(on consumer: Component) {
 		//this is not supported by this factory
 	}
 	
-	func resolutionPossible(on consumer: WindComponent) -> Bool {
+	func resolutionPossible(on consumer: Component) -> Bool {
 		false
 	}
 	
@@ -59,10 +54,10 @@ internal class DirectComponentFactory<Item, PublicInterface>: DirectComponentFac
 }
 
 /// This Factory is capable of detecting dependencies by using a dependency type hint.
-internal class IndirectComponentFactory<Item, PublicInterface, DependencyDetection>: DirectComponentFactory<Item, PublicInterface> where Item: Instantiable{
+internal class IndirectComponentFactory<Item, PublicInterface, DependencyDetection>: DirectComponentFactory<Item, PublicInterface> where Item: Instantiable {
 	required init() { }
 	
-	override func resolve(on consumer: WindComponent) {
+	override func resolve(on consumer: Component) {
 		guard consumer is DependencyDetection else {
 			return
 		}
@@ -73,26 +68,26 @@ internal class IndirectComponentFactory<Item, PublicInterface, DependencyDetecti
 		consumer.fill(dependency: PublicInterface.self, with: instance)
 	}
 	
-	override func resolutionPossible(on consumer: WindComponent) -> Bool {
+	override func resolutionPossible(on consumer: Component) -> Bool {
 		return consumer is DependencyDetection;
 	}
 }
 
 public extension Instantiable where Self: DirectResolver {
-	static func buildFactory() -> Resolver {
-		return DirectComponentFactory<Self, Self>() as! Resolver
+	static func buildFactory() -> DependencyResolver {
+		return DirectComponentFactory<Self, Self>()
 	}
 }
 
 public extension Instantiable where Self: SimpleResolver {
-	static func buildFactory() -> Resolver {
+	static func buildFactory() -> DependencyResolver {
 		let factory: IndirectComponentFactory<Self, Self, DependencyToken> = IndirectComponentFactory()
-		return factory as! Resolver
+		return factory
 	}
 }
 
 public extension Instantiable where Self: IndirectResolver {
-	static func buildFactory() -> Resolver {
-		return IndirectComponentFactory<Self, PublicInterface, DependencyToken>() as! Resolver
+	static func buildFactory() -> DependencyResolver {
+		return IndirectComponentFactory<Self, PublicInterface, DependencyToken>()
 	}
 }

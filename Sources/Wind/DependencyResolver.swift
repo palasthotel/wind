@@ -1,5 +1,5 @@
 //
-//  Resolver.swift
+//  DependencyResolver.swift
 //  Wind
 //
 //  Created by Enno Welbers on 06.06.17.
@@ -14,9 +14,9 @@ import Foundation
 /// Fills in all dependencies it is capable of.
 /// In direct mode it tries to meet a single dependency directly.
 
-public protocol Resolver: AnyObject {
-	func resolve(on consumer: WindComponent) -> Void
-	func resolutionPossible(on consumer: WindComponent) -> Bool
-	func resolveDirectly<T>()->T?
+public protocol DependencyResolver: AnyObject {
+	func resolve(on consumer: Component) -> Void
+	func resolutionPossible(on consumer: Component) -> Bool
+	func resolveDirectly<T>() -> T?
 	
 }

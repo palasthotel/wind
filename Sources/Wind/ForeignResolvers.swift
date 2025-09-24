@@ -8,11 +8,10 @@
 
 import Foundation
 
-
-internal class ForeignSimpleResolver<DependencyToken, Type> {
-    weak var component: WindComponent?
+internal class ForeignSimpleResolver<DependencyToken, Type>: DependencyResolver {
+    weak var component: Component?
     
-    public func resolve(on consumer:WindComponent) -> Void {
+    public func resolve(on consumer:Component) -> Void {
 		guard consumer is DependencyToken else {
 			return
 		}
@@ -20,7 +19,7 @@ internal class ForeignSimpleResolver<DependencyToken, Type> {
 		(consumer as? WeakDependencyAware)?.fill(dependency: Type.self, weaklyWith: component!)
     }
     
-    public func resolutionPossible(on consumer: WindComponent) -> Bool {
+    public func resolutionPossible(on consumer: Component) -> Bool {
         return consumer is DependencyToken && consumer is WeakDependencyAware && component != nil
     }
     
@@ -33,16 +32,17 @@ internal class ForeignSimpleResolver<DependencyToken, Type> {
     }
 }
 
-internal class ForeignIndirectResolver<DependencyToken, PublicInterface, Type> {
-    weak var component: WindComponent?
+
+internal class ForeignIndirectResolver<DependencyToken, PublicInterface, Type>: DependencyResolver {
+    weak var component: Component?
     
-    public func resolve(on consumer: WindComponent) {
+    public func resolve(on consumer: Component) {
         if consumer is DependencyToken {
             (consumer as? WeakDependencyAware)?.fill(dependency: PublicInterface.self, weaklyWith: component!)
         }
     }
     
-    public func resolutionPossible(on consumer: WindComponent) -> Bool {
+    public func resolutionPossible(on consumer: Component) -> Bool {
         return consumer is DependencyToken && consumer is WeakDependencyAware && component != nil
     }
     
