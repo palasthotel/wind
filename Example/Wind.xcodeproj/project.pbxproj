@@ -756,8 +756,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/palasthotel/wind";
 			requirement = {
-				branch = "issue/11-update-to-swift-6-2";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
